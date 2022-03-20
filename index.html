@@ -174,45 +174,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="个人博客搭建记录"><a href="#个人博客搭建记录" class="headerlink" title="个人博客搭建记录"></a>个人博客搭建记录</h1><h4 id="1-检查支持"><a href="#1-检查支持" class="headerlink" title="1 检查支持"></a>1 检查支持</h4><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318163645035.png" alt="image-20220318163645035"></p>
-<h4 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2 创建仓库"></a>2 创建仓库</h4><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318164224266.png" alt="image-20220318164224266"></p>
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318164318037.png" alt="image-20220318164318037"></p>
-<h4 id="3-配置SSH"><a href="#3-配置SSH" class="headerlink" title="3 配置SSH"></a>3 配置SSH</h4><h4 id="4-安装hexo"><a href="#4-安装hexo" class="headerlink" title="4 安装hexo"></a>4 安装hexo</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318223019924.png" alt="image-20220318223019924"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsevent是mac系统的，在win或者Linux下使用，会不支持fsevents平台，所以产生了警告</span><br></pre></td></tr></table></figure>
-
-<h5 id="查看hexo版本"><a href="#查看hexo版本" class="headerlink" title="查看hexo版本"></a>查看hexo版本</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318223404311.png" alt="image-20220318223404311"></p>
-<h5 id="cd-x2F-e-x2F-hexo-初始化"><a href="#cd-x2F-e-x2F-hexo-初始化" class="headerlink" title="cd &#x2F;e&#x2F;hexo 初始化"></a>cd &#x2F;e&#x2F;hexo 初始化</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318223830858.png" alt="image-20220318223830858"></p>
-<h5 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h5><p><strong>1 网络问题：关掉梯子</strong></p>
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318223806152.png" alt="image-20220318223806152"></p>
-<p><strong>2 权限不够：以管理员身份打开cmd</strong></p>
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318223953587.png" alt="image-20220318223953587"></p>
-<h4 id="5-初始化"><a href="#5-初始化" class="headerlink" title="5 初始化"></a>5 初始化</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g #生成</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318224848175.png" alt="image-20220318224848175"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s #启动服务</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-上传github"><a href="#6-上传github" class="headerlink" title="6 上传github"></a>6 上传github</h4><h5 id="编辑-config-yml文件"><a href="#编辑-config-yml文件" class="headerlink" title="编辑_config.yml文件"></a>编辑_config.yml文件</h5><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318230243104.png" alt="image-20220318230243104"></p>
-<h5 id="安装hexo-deployer-git"><a href="#安装hexo-deployer-git" class="headerlink" title="安装hexo-deployer-git"></a>安装hexo-deployer-git</h5><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318230431927.png" alt="image-20220318230431927"></p>
-<h5 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318231408061.png" alt="image-20220318231408061"></p>
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220318231419956.png" alt="image-20220318231419956"></p>
-<h4 id="7-使用github仓库上传图片"><a href="#7-使用github仓库上传图片" class="headerlink" title="7 使用github仓库上传图片"></a>7 使用github仓库上传图片</h4><p>创建一个文件夹，在文件夹内git bash</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;...&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220320135620648.png" alt="image-20220320135620648"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:Rthete/blog_image.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/1/image-20220320135730766.png" alt="image-20220320135730766"></p>
-
+        <h1 id="个人博客搭建记录"><a href="#个人博客搭建记录" class="headerlink" title="个人博客搭建记录"></a>个人博客搭建记录</h1><p>记录一下搭建博客的过程以及遇到的问题~</p>
+        
+          <a class="article-more-a" href="/2022/03/19/hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/#more">more >></a>
+        
       
 
       
