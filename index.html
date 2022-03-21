@@ -145,6 +145,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2039. 网络空闲的时刻" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/21/2039.%20%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B2%E7%9A%84%E6%97%B6%E5%88%BB/">2039. 网络空闲的时刻</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/21/2039.%20%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B2%E7%9A%84%E6%97%B6%E5%88%BB/" class="archive-article-date">
+  	<time datetime="2022-03-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/the-time-when-the-network-becomes-idle/">https://leetcode-cn.com/problems/the-time-when-the-network-becomes-idle/</a></p>
+<p><img src="C:\Users\张欣怡\AppData\Roaming\Typora\typora-user-images\image-20220320230145526.png" alt="image-20220320230145526"></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先计算每个服务器的最优线路时的距离为<code>d</code>（<strong>广度优先搜索</strong>），那么<code>2 * d</code>时服务器能收到回复，停止重发信息。</p>
+<p><code>2 * d &gt; p</code>时，服务器需要多发<code>n = (2 * d - 1) / p</code>条消息。最后一条消息在<code>n * p</code>时出发，经过<code>2 * d</code>秒，回到服务器。所以网络空闲时刻为<code>n * p + 2 * d + 1</code>，即<code>((2 * d - 1) / p) * p + 2 * d + 1</code>。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">networkBecomesIdle</span>(<span class="params">self, edges: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], patience: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(patience)	<span class="comment"># n个服务器</span></span><br><span class="line">        g = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]	<span class="comment"># 定义二维列表g，用于记录每个点可到达的点的集合</span></span><br><span class="line">        <span class="keyword">for</span> u, v <span class="keyword">in</span> edges:</span><br><span class="line">            g[u].append(v)</span><br><span class="line">            g[v].append(u)</span><br><span class="line"></span><br><span class="line">        vis = [<span class="literal">False</span>] * n	<span class="comment"># vis记录是否已搜索过</span></span><br><span class="line">        vis[<span class="number">0</span>] = <span class="literal">True</span></span><br><span class="line">        q = deque([<span class="number">0</span>])	<span class="comment"># 队列初始化，队列内只有主服务器（0点）</span></span><br><span class="line">        ans, dist = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        广度优先搜索：</span></span><br><span class="line"><span class="string">        	从0点开始搜索，每次计算dist=1,2,3...的服务器的消息时间，直到队列为空</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">while</span> q:</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(q)):</span><br><span class="line">                u = q.popleft()	<span class="comment"># 队列左边弹出</span></span><br><span class="line">                <span class="keyword">for</span> v <span class="keyword">in</span> g[u]:</span><br><span class="line">                    <span class="keyword">if</span> vis[v]:	<span class="comment"># 若已访问v，跳过</span></span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    vis[v] = <span class="literal">True</span>	<span class="comment"># 若未访问v，将vis[v]置1，v加入队列</span></span><br><span class="line">                    q.append(v)</span><br><span class="line">                    ans = <span class="built_in">max</span>(ans, (dist * <span class="number">2</span> - <span class="number">1</span>) // patience[v] * patience[v] + dist * <span class="number">2</span> + <span class="number">1</span>)	</span><br><span class="line">                    <span class="comment"># 双/为整数除法</span></span><br><span class="line">            dist += <span class="number">1</span>	<span class="comment"># 注意此处的缩进</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37482202/article/details/89513877">https://blog.csdn.net/qq_37482202/article/details/89513877</a></p>
+<h3 id="Python-list-列表"><a href="#Python-list-列表" class="headerlink" title="Python: list 列表"></a>Python: list 列表</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hu1258123819/article/details/91895869">https://blog.csdn.net/hu1258123819/article/details/91895869</a></p>
+<h3 id="Python-下划线"><a href="#Python-下划线" class="headerlink" title="Python: 下划线"></a>Python: 下划线</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/36173202">https://zhuanlan.zhihu.com/p/36173202</a></p>
+<p>按照习惯，有时候单个独立下划线是用作一个名字，来表示某个变量是临时的或无关紧要的。</p>
+<p>例如，在下面的循环中，我们不需要访问正在运行的索引，我们可以使用“_”来表示它只是一个临时值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>):</span><br><span class="line"><span class="meta">... </span>   <span class="built_in">print</span>(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python-deque-双向队列"><a href="#Python-deque-双向队列" class="headerlink" title="Python: deque 双向队列"></a>Python: deque 双向队列</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ranzhong/p/12438841.html">https://www.cnblogs.com/ranzhong/p/12438841.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo个人博客搭建记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
