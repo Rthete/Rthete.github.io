@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>653. 两数之和 IV - 输入 BST | Twice!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="653. 两数之和 IV - 输入 BST653. 两数之和 IV - 输入 BST 给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。 思路维护一个哈希表self.s，初始时为空。 从根节点开始向下递归搜索，对于当前节点（值为x)，检查self.s中是否存在k - x，若存在则返回True。 若不存在，将当前节点值x加入">
+  <meta name="description" content="653. 两数之和 IV - 输入 BST 给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。 思路维护一个哈希表self.s，初始时为空。 从根节点开始向下递归搜索，对于当前节点（值为x)，检查self.s中是否存在k - x，若存在则返回True。 若不存在，将当前节点值x加入self.s，继续搜索。 代码123456">
 <meta property="og:type" content="article">
 <meta property="og:title" content="653. 两数之和 IV - 输入 BST">
 <meta property="og:url" content="http://example.com/2022/03/21/653.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/index.html">
 <meta property="og:site_name" content="Twice!">
-<meta property="og:description" content="653. 两数之和 IV - 输入 BST653. 两数之和 IV - 输入 BST 给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。 思路维护一个哈希表self.s，初始时为空。 从根节点开始向下递归搜索，对于当前节点（值为x)，检查self.s中是否存在k - x，若存在则返回True。 若不存在，将当前节点值x加入">
+<meta property="og:description" content="653. 两数之和 IV - 输入 BST 给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。 思路维护一个哈希表self.s，初始时为空。 从根节点开始向下递归搜索，对于当前节点（值为x)，检查self.s中是否存在k - x，若存在则返回True。 若不存在，将当前节点值x加入self.s，继续搜索。 代码123456">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-21T12:30:55.664Z">
+<meta property="article:modified_time" content="2022-03-21T12:35:20.989Z">
 <meta property="article:author" content="Rthete">
 <meta property="article:tag" content="学习之路">
 <meta name="twitter:card" content="summary">
@@ -165,7 +165,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="653-两数之和-IV-输入-BST"><a href="#653-两数之和-IV-输入-BST" class="headerlink" title="653. 两数之和 IV - 输入 BST"></a>653. 两数之和 IV - 输入 BST</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/">653. 两数之和 IV - 输入 BST</a></p>
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/">653. 两数之和 IV - 输入 BST</a></p>
 <p>给定一个二叉搜索树 <code>root</code> 和一个目标结果 <code>k</code>，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 <code>true</code>。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>维护一个哈希表<code>self.s</code>，初始时为空。</p>
 <p>从根节点开始向下递归搜索，对于当前节点（值为x)，检查<code>self.s</code>中是否存在<code>k - x</code>，若存在则返回True。</p>
@@ -294,7 +294,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#653-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-IV-%E8%BE%93%E5%85%A5-BST"><span class="toc-number">1.</span> <span class="toc-text">653. 两数之和 IV - 输入 BST</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86"><span class="toc-number">1.3.</span> <span class="toc-text">知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-set"><span class="toc-number">1.3.1.</span> <span class="toc-text">Python: set</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-set"><span class="toc-number">3.1.</span> <span class="toc-text">Python: set</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
