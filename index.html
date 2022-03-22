@@ -145,6 +145,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2038-如果相邻两个颜色均相同则删除当前颜色" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/22/2038-%E5%A6%82%E6%9E%9C%E7%9B%B8%E9%82%BB%E4%B8%A4%E4%B8%AA%E9%A2%9C%E8%89%B2%E5%9D%87%E7%9B%B8%E5%90%8C%E5%88%99%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A2%9C%E8%89%B2/">2038. 如果相邻两个颜色均相同则删除当前颜色</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/22/2038-%E5%A6%82%E6%9E%9C%E7%9B%B8%E9%82%BB%E4%B8%A4%E4%B8%AA%E9%A2%9C%E8%89%B2%E5%9D%87%E7%9B%B8%E5%90%8C%E5%88%99%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A2%9C%E8%89%B2/" class="archive-article-date">
+  	<time datetime="2022-03-22T08:41:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/">2038. 如果相邻两个颜色均相同则删除当前颜色</a></p>
+<p>总共有<code>n</code>个颜色片段排成一列，每个颜色片段要么是<code>&#39;A&#39;</code>要么是<code>&#39;B&#39;</code>。给你一个长度为<code>n</code>的字符串<code>colors</code>，其中<code>colors[i]</code>表示第<code>i</code>个颜色片段的颜色。</p>
+<p>Alice和Bob在玩一个游戏，他们<strong>轮流</strong>从这个字符串中删除颜色。Alice<strong>先手</strong>。</p>
+<ul>
+<li>如果一个颜色片段为<code>&#39;A&#39;</code>且<strong>相邻两个颜色</strong>都是颜色<code>&#39;A&#39;</code>，那么Alice可以删除该颜色片段。Alice<strong>不可以</strong>删除任何颜色<code>&#39;B&#39;</code>片段。</li>
+<li>如果一个颜色片段为<code>&#39;B&#39;</code>且<strong>相邻两个颜色</strong>都是颜色<code>&#39;B&#39;</code>，那么Bob可以删除该颜色片段。Bob<strong>不可以</strong>删除任何颜色<code>&#39;A&#39;</code>片段。</li>
+<li>Alice和Bob<strong>不能</strong>从字符串两端删除颜色片段。</li>
+<li>如果其中一人无法继续操作，则该玩家<strong>输</strong>掉游戏且另一玩家<strong>获胜</strong>。</li>
+</ul>
+<p>假设Alice和Bob都采用最优策略，如果Alice获胜，请返回<code>true</code>，否则Bob获胜，返回<code>false</code>。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="1-递归替换（超时）"><a href="#1-递归替换（超时）" class="headerlink" title="1. 递归替换（超时）"></a>1. 递归替换（超时）</h3><p>题干转化为：第一轮将<code>AAA</code>替换为<code>AA</code>，第二轮将<code>BBB</code>替换为<code>BB</code>，以此类推……当不存在<code>AAA</code>或<code>BBB</code>，循环停止。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">winnerOfGame</span>(<span class="params">self, colors: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;AAA&quot;</span> <span class="keyword">in</span> colors:</span><br><span class="line">            colors = colors.replace(<span class="string">&quot;AAA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;BBB&quot;</span> <span class="keyword">in</span> colors:</span><br><span class="line">            colors = colors.replace(<span class="string">&quot;BBB&quot;</span>, <span class="string">&quot;BB&quot;</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> self.winnerOfGame(colors)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-计算法（贪心）"><a href="#2-计算法（贪心）" class="headerlink" title="2. 计算法（贪心）"></a>2. 计算法（贪心）</h3><p>直接计算<strong>可删除的A的数量</strong>&amp;<strong>可删除的B的数量</strong>。</p>
+<p><em>总的来说这两者完全没什么关系。。。很无语的题目&#x3D; &#x3D;</em></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">winnerOfGame</span>(<span class="params">self, colors: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        l = <span class="built_in">len</span>(colors)</span><br><span class="line">        cnta, cntb = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l - <span class="number">2</span>):</span><br><span class="line">            <span class="keyword">if</span> colors[i:i+<span class="number">3</span>] == <span class="string">&quot;AAA&quot;</span>:</span><br><span class="line">                cnta += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> colors[i:i+<span class="number">3</span>] == <span class="string">&quot;BBB&quot;</span>:</span><br><span class="line">                cntb += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cnta &gt; cntb:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-string.html"> 菜鸟教程：Python3 字符串</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2039. 网络空闲的时刻" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -165,7 +252,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="2039-网络空闲的时刻"><a href="#2039-网络空闲的时刻" class="headerlink" title="2039. 网络空闲的时刻"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/the-time-when-the-network-becomes-idle/">2039. 网络空闲的时刻</a></h4><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/2/image-20220320230145526.png" alt="image-20220320230145526"></p>
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/the-time-when-the-network-becomes-idle/">2039. 网络空闲的时刻</a></p>
+<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/2/image-20220320230145526.png" alt="image-20220320230145526"></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先计算每个服务器的最优线路时的距离为<code>d</code>（<strong>广度优先搜索</strong>），那么<code>2 * d</code>时服务器能收到回复，停止重发信息。</p>
 <p><code>2 * d &gt; p</code>时，服务器需要多发<code>n = (2 * d - 1) / p</code>条消息。最后一条消息在<code>n * p</code>时出发，经过<code>2 * d</code>秒，回到服务器。所以网络空闲时刻为<code>n * p + 2 * d + 1</code>，即<code>((2 * d - 1) / p) * p + 2 * d + 1</code>。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">networkBecomesIdle</span>(<span class="params">self, edges: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], patience: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(patience)	<span class="comment"># n个服务器</span></span><br><span class="line">        g = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]	<span class="comment"># 定义二维列表g，用于记录每个点可到达的点的集合</span></span><br><span class="line">        <span class="keyword">for</span> u, v <span class="keyword">in</span> edges:</span><br><span class="line">            g[u].append(v)</span><br><span class="line">            g[v].append(u)</span><br><span class="line"></span><br><span class="line">        vis = [<span class="literal">False</span>] * n	<span class="comment"># vis记录是否已搜索过</span></span><br><span class="line">        vis[<span class="number">0</span>] = <span class="literal">True</span></span><br><span class="line">        q = deque([<span class="number">0</span>])	<span class="comment"># 队列初始化，队列内只有主服务器（0点）</span></span><br><span class="line">        ans, dist = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        广度优先搜索：</span></span><br><span class="line"><span class="string">        	从0点开始搜索，每次计算dist=1,2,3...的服务器的消息时间，直到队列为空</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">while</span> q:</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(q)):</span><br><span class="line">                u = q.popleft()	<span class="comment"># 队列左边弹出</span></span><br><span class="line">                <span class="keyword">for</span> v <span class="keyword">in</span> g[u]:</span><br><span class="line">                    <span class="keyword">if</span> vis[v]:	<span class="comment"># 若已访问v，跳过</span></span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    vis[v] = <span class="literal">True</span>	<span class="comment"># 若未访问v，将vis[v]置1，v加入队列</span></span><br><span class="line">                    q.append(v)</span><br><span class="line">                    ans = <span class="built_in">max</span>(ans, (dist * <span class="number">2</span> - <span class="number">1</span>) // patience[v] * patience[v] + dist * <span class="number">2</span> + <span class="number">1</span>)	</span><br><span class="line">                    <span class="comment"># 双/为整数除法</span></span><br><span class="line">            dist += <span class="number">1</span>	<span class="comment"># 注意此处的缩进</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
@@ -193,7 +281,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
         		</li>
       		
 		</ul>
@@ -270,7 +358,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习之路</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
         		</li>
       		
 		</ul>
@@ -539,6 +627,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">学习之路</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
             
             <div class="clearfix"></div>
