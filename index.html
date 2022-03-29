@@ -151,6 +151,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python读入txt中的数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/29/Python%E8%AF%BB%E5%85%A5txt%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84/">Python读入txt中的数组</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/29/Python%E8%AF%BB%E5%85%A5txt%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84/" class="archive-article-date">
+  	<time datetime="2022-03-29T08:34:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近写遗传算法作业要用老师给的数据进行测试，于是学习了一些方法……</p>
+<h2 id="txt数据格式"><a href="#txt数据格式" class="headerlink" title="txt数据格式"></a>txt数据格式</h2><p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/3/image-20220329161409105.png" alt="image-20220329161409105"></p>
+<p>提供的数据为城市间距离的下三角矩阵，直观显示大概为如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">0 </span><br><span class="line">633 0 </span><br><span class="line">257 390 0 </span><br><span class="line">91 661 228 0 </span><br><span class="line">412 227 169 383 0 </span><br><span class="line">150 488 112 120 267 0 </span><br><span class="line">80 572 196 77 351 63 0 </span><br><span class="line">134 530 154 105 309 34 29 0 </span><br><span class="line">259 555 372 175 338 264 232 249 0 </span><br><span class="line">505 289 262 476 196 360 444 402 495 0 </span><br><span class="line">353 282 110 324 61 208 292 250 352 154 0 </span><br><span class="line">324 638 437 240 421 329 297 314 95 578 435 0 </span><br><span class="line">70 567 191 27 346 83 47 68 189 439 287 254 0 </span><br><span class="line">211 466 74 182 243 105 150 108 326 336 184 391 145 0 </span><br><span class="line">268 420 53 239 199 123 207 165 383 240 140 448 202 57 0 </span><br><span class="line">246 745 472 237 528 364 332 349 202 685 542 157 289 426 483 0 </span><br><span class="line">121 518 142 84 297 35 29 36 236 390 238 301 55 96 153 336 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1-使用np-loadtxt读入txt文件"><a href="#1-使用np-loadtxt读入txt文件" class="headerlink" title="1. 使用np.loadtxt读入txt文件"></a>1. 使用np.loadtxt读入txt文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = np.loadtxt(<span class="string">&#x27;数据.txt&#x27;</span>, dtype=np.<span class="built_in">int</span>, delimiter=<span class="string">&#x27; &#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法就需要txt文件格式较为规范。</p>
+<h3 id="2-自定义方法读入txt文件"><a href="#2-自定义方法读入txt文件" class="headerlink" title="2. 自定义方法读入txt文件"></a>2. 自定义方法读入txt文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">file2array</span>(<span class="params">path, delimiter=<span class="string">&#x27; &#x27;</span></span>):     <span class="comment"># delimiter是数据分隔符</span></span><br><span class="line">    fp = <span class="built_in">open</span>(path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    string = fp.read()              <span class="comment"># string是一行字符串，该字符串包含文件所有内容</span></span><br><span class="line">    fp.close()</span><br><span class="line">    row_list = string.splitlines()  <span class="comment"># splitlines默认参数是‘\n’</span></span><br><span class="line">    data_list = [[<span class="built_in">float</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> row.strip().split(delimiter)] <span class="keyword">for</span> row <span class="keyword">in</span> row_list]</span><br><span class="line">    <span class="comment"># print(data_list)</span></span><br><span class="line">    <span class="comment"># return np.array(data_list)</span></span><br><span class="line">    data = <span class="built_in">list</span>(itertools.chain.from_iterable(data_list)) <span class="comment">#二维数组转一维</span></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-处理下三角矩阵"><a href="#3-处理下三角矩阵" class="headerlink" title="3. 处理下三角矩阵"></a>3. 处理下三角矩阵</h3><p>为了方便使用把空的部分填上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">distance = np.zeros([cityNum,cityNum])</span><br><span class="line">	<span class="comment"># 遍历data[]，填入distance[][]</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(cityNum):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(cityNum):</span><br><span class="line">            <span class="comment"># print(i, j, data[p])</span></span><br><span class="line">            distance[i][j] = data[p]</span><br><span class="line">            distance[j][i] = data[p]</span><br><span class="line">            p += <span class="number">1</span></span><br><span class="line">            <span class="comment">#每行读到&quot;0&quot;跳出列循环，到下一行</span></span><br><span class="line">            <span class="keyword">if</span> data[p-<span class="number">1</span>] == <span class="number">0</span>:	</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-将处理好的矩阵输出为txt文件"><a href="#4-将处理好的矩阵输出为txt文件" class="headerlink" title="4. 将处理好的矩阵输出为txt文件"></a>4. 将处理好的矩阵输出为txt文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.savetxt(<span class="string">&quot;test.txt&quot;</span>, distance, fmt=<span class="string">&quot;%d&quot;</span>, delimiter=<span class="string">&quot; &quot;</span>)	<span class="comment">#distance-要输出的矩阵</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/3/image-20220329162033711.png" alt="image-20220329162033711"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说实话也不知道为什么要折腾那么几下 &#x3D; &#x3D; 总之就是虽然都是基本操作但本人很怕麻烦……</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43593330/article/details/89882187">numpy.loadtxt() 用法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/romin/p/10111239.html">numpy基础教程–将二维数组转换为一维数组</a></p>
+<p>[python读入txt数据，并转成矩阵](</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习之路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/29/Python%E8%AF%BB%E5%85%A5txt%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2028. 找出缺失的观测数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -276,9 +370,9 @@
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>简单的字符串处理问题，判断<code>ops</code>元素为<code>C</code> or <code>D</code> or <code>+</code> or <code>数字</code>，注意这里数字可能为负数，一开始用了<code>str.isdigit()</code>函数，谁曾想这个只能用来判定正整数…于是直接一个else解决。</p>
 <p>因为不想增加空间所以原地在ops上记录分数，定义了一个指针<code>ptr</code>用来记录纯得分（不包含操作符）。</p>
 <p>其他的解通常为通过定义一个栈（数字列表）来存储得分的记录（不包含操作符）。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ptr, score = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            <span class="keyword">if</span> op == <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) + <span class="built_in">int</span>(ops[ptr-<span class="number">2</span>]))</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) * <span class="number">2</span>)</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                score -= <span class="built_in">int</span>(ops[ptr-<span class="number">1</span>])</span><br><span class="line">                ptr -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                score += <span class="built_in">int</span>(op)</span><br><span class="line">                ops[ptr] = <span class="built_in">int</span>(op)</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ptr, score = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            <span class="keyword">if</span> op == <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) + <span class="built_in">int</span>(ops[ptr-<span class="number">2</span>]))</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) * <span class="number">2</span>)</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                score -= <span class="built_in">int</span>(ops[ptr-<span class="number">1</span>])</span><br><span class="line">                ptr -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                score += <span class="built_in">int</span>(op)</span><br><span class="line">                ops[ptr] = <span class="built_in">int</span>(op)</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br></pre></td></tr></table></figure>
 
-<p>参考<a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/azusatsang/">https://leetcode-cn.com/u/azusatsang/</a></p>
+<h3 id="实现2"><a href="#实现2" class="headerlink" title="实现2"></a>实现2</h3><p>参考了<a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/azusatsang/">https://leetcode-cn.com/u/azusatsang/</a></p>
 <p>使用<code>match-case</code>方法，更加简洁：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            match op:</span><br><span class="line">                case <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                    stk.pop()</span><br><span class="line">                case <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] * <span class="number">2</span>)</span><br><span class="line">                case <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] + stk[-<span class="number">2</span>])</span><br><span class="line">                case _:</span><br><span class="line">                    stk.append(<span class="built_in">int</span>(op))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(stk)</span><br></pre></td></tr></table></figure>
 
