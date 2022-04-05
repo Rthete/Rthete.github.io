@@ -151,6 +151,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-762. 二进制表示中质数个计算置位" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/05/762.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/">762. 二进制表示中质数个计算置位</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/05/762.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/" class="archive-article-date">
+  	<time datetime="2022-04-05T08:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/">762. 二进制表示中质数个计算置位</a></p>
+<p>给你两个整数<code>left</code>和<code>right</code>，在闭区间<code>[left, right]</code>范围内，统计并返回<strong>计算置位位数为质数</strong>的整数个数。</p>
+<p><strong>计算置位位数</strong>就是二进制表示中<code>1</code>的个数。</p>
+<ul>
+<li>例如，<code>21</code>的二进制表示<code>10101</code>有<code>3</code>个计算置位。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：left = 6, right = 10</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">6 -&gt; 110 (2 个计算置位，2 是质数)</span><br><span class="line">7 -&gt; 111 (3 个计算置位，3 是质数)</span><br><span class="line">9 -&gt; 1001 (2 个计算置位，2 是质数)</span><br><span class="line">10-&gt; 1010 (2 个计算置位，2 是质数)</span><br><span class="line">共计 4 个计算置位为质数的数字。</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题的重点主要在</p>
+<ol>
+<li><p><strong>判断质数的方法</strong></p>
+<p>本题使用时间复杂度$O(\sqrt{n})$的枚举法不会超时，但可以参考<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/">204. 计数质数</a>中的各个方法继续改进：</p>
+<ul>
+<li>埃氏筛</li>
+<li>线性筛</li>
+</ul>
+</li>
+<li><p><strong>统计二进制1的个数</strong></p>
+<p>可以简单的遍历，也可以使用库函数。</p>
+</li>
+</ol>
+<h2 id="方法1-常规"><a href="#方法1-常规" class="headerlink" title="方法1 常规"></a>方法1 常规</h2><p>简单自己写了一个，普普通通的<code>is_prime</code>，普普通通的计算二进制……</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countPrimeSetBits</span>(<span class="params">self, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">is_prime</span>(<span class="params">x</span>):</span><br><span class="line">            <span class="keyword">if</span> x == <span class="number">1</span>: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(x ** <span class="number">0.5</span>) + <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> x % i == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(left, right + <span class="number">1</span>):</span><br><span class="line">            num = <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">                num += n % <span class="number">2</span></span><br><span class="line">                n //= <span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span> is_prime(num): ans += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2-库函数求二进制1的位数"><a href="#方法2-库函数求二进制1的位数" class="headerlink" title="方法2 库函数求二进制1的位数"></a>方法2 库函数求二进制1的位数</h2><p>使用Python3的新功能<code>bit_count()</code>函数来统计1的个数。</p>
+<p>函数的实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bit_count</span>(<span class="params">value</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bin</span>(value).count(<span class="string">&quot;1&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>bin()</code>函数返回<code>value</code>的二进制形式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isPrime</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        i = <span class="number">2</span></span><br><span class="line">        <span class="keyword">while</span> i * i &lt;= x:</span><br><span class="line">            <span class="keyword">if</span> x % i == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countPrimeSetBits</span>(<span class="params">self, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(self.isPrime(x.bit_count()) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(left, right + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法3-判断质数优化"><a href="#方法3-判断质数优化" class="headerlink" title="方法3 判断质数优化"></a>方法3 判断质数优化</h2><p>注意到 $\textit{right} \le 10^6 &lt; 2^{20}$，因此二进制中1的个数不会超过19，而不超过19的质数只有<br>$$<br>2, 3, 5, 7, 11, 13, 17, 19<br>$$<br>我们可以用一个二进制数$ \textit{mask}&#x3D;665772&#x3D;10100010100010101100_{2}$来存储这些质数，其中$\textit{mask}$二进制的从低到高的第$i$位为 1表示$i$是质数，为0表示$i$不是质数。</p>
+<p>设整数$x$的二进制中1的个数为$c$，若$\textit{mask}$按位与（两个都为1，结果才为1）$2^c$不为0，则说明$c$是一个质数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countPrimeSetBits</span>(<span class="params">self, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(((<span class="number">1</span> &lt;&lt; x.bit_count()) &amp; <span class="number">665772</span>) != <span class="number">0</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(left, right + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107300262">【Python】质数的几种判断方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365420919">Python 3.10发布临近，一文尽览所有重要新特性和变化</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-bin.html">Python bin() 函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-operators.html#ysf5">Python位运算符</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/05/762.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-744. 寻找比目标字母大的最小字母" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1013,68 +1126,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/24/661-%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-661. 图片平滑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/24/661.%20%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/">661. 图片平滑器</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/24/661.%20%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2022-03-24T14:49:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/24/661.%20%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/">more >></a>
         </p>
       
 
