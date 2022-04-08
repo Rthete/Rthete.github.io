@@ -151,6 +151,109 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-172. 阶乘后的零" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">172. 阶乘后的零</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/" class="archive-article-date">
+  	<time datetime="2022-03-25T14:53:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/">172. 阶乘后的零</a></p>
+<p>给定一个整数 <code>n</code> ，返回 <code>n!</code> 结果中尾随零的数量。</p>
+<p>提示 <code>n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1</code></p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3</span><br><span class="line">输出：0</span><br><span class="line">解释：3! = 6 ，不含尾随 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 5</span><br><span class="line">输出：1</span><br><span class="line">解释：5! = 120 ，有一个尾随 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 0</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>遍历1到n，算每个数字的因子2的个数<code>cnt2</code>、5的个数<code>cnt5</code>，最后取<code>min(cnt2,cnt5)</code>，即为能乘出10的数量，即尾随零数量。还是相当简单~</p>
+<p>不过还有更好的解法，即：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/xiang-xi-tong-su-de-si-lu-fen-xi-by-windliang-3/">leetcode题解by windliang</a></p>
+<p>对于一个数的阶乘，就如之前分析的，5的因子一定是每隔 5个数出现一次，</p>
+<p>$n! &#x3D; 1 * 2 * 3 * 4 * (1 * 5) * … * (2 * 5) * … * (3 * 5) *… * n$</p>
+<p>因为每隔 5个数出现一个5，所以计算出现了多少个5，我们只需要用<code>n/5</code>就可以算出来。</p>
+<p>但还没有结束，继续分析。</p>
+<p>$… * (1 * 5) * … * (1 * 5 * 5) * … * (2 * 5 * 5) * … * (3 * 5 * 5) * … * n$</p>
+<p>每隔25个数字，出现的是两个5，所以除了每隔5个数算作一个5，每隔25个数，还需要多算一个5。</p>
+<p>也就是我们需要再加上<code>n/25</code>个5。</p>
+<p>同理我们还会发现每隔$5 * 5 * 5 &#x3D; 125$个数字，会出现3个5，所以我们还需要再加上<code>n / 125</code>。</p>
+<p>综上，规律就是每隔5个数，出现一个5，每隔25个数，出现2个5，每隔125个数，出现3个5… 以此类推。</p>
+<p>最终5的个数就是$n &#x2F; 5 + n &#x2F; 25 + n &#x2F; 125 …$</p>
+<p>写程序的话，如果直接按照上边的式子计算，分母可能会造成溢出。所以算 n &#x2F; 25 的时候，我们先把 n 更新，n &#x3D; n &#x2F; 5，然后再计算 n &#x2F; 5 即可。后边的同理。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="方法一-朴素"><a href="#方法一-朴素" class="headerlink" title="方法一 朴素"></a>方法一 朴素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">trailingZeroes</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        cnt2 = <span class="number">0</span></span><br><span class="line">        cnt5 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n+<span class="number">1</span>):</span><br><span class="line">            x = i</span><br><span class="line">            <span class="keyword">while</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">or</span> x % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                    x = x / <span class="number">2</span></span><br><span class="line">                    cnt2 += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> x % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">                    x = x / <span class="number">5</span></span><br><span class="line">                    cnt5 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(cnt2, cnt5)</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二-优化"><a href="#方法二-优化" class="headerlink" title="方法二 优化"></a>方法二 优化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">trailingZeroes</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            n //= <span class="number">5</span></span><br><span class="line">            ans += n</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-661-图片平滑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

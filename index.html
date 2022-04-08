@@ -151,6 +151,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-429. N 叉树的层序遍历" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">429. N 叉树的层序遍历</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="archive-article-date">
+  	<time datetime="2022-04-08T11:40:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/">429. N 叉树的层序遍历</a></p>
+<p>给定一个 N 叉树，返回其节点值的<em>层序遍历</em>。（即从左到右，逐层遍历）。</p>
+<p>树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。</p>
+<p><strong>示例 1：</strong></p>
+<img src="https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png" style="zoom:50%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,3,2,4,null,5,6]</span><br><span class="line">输出：[[1],[3,2,4],[5,6]]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<img src="https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png" style="zoom:50%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]</span><br><span class="line">输出：[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>层序遍历的基础题、广度优先搜索</strong></p>
+<p>使用一个队列<code>cur</code>来存储每层的root节点，也可以使用list，但效率低。</p>
+<p>每次遍历这一层的节点，取出节点值并将下一列（即children）加入cur，注意此处只用了一个<code>cur</code>来存储，通过每层节点的数量<code>len(cur)</code>来分层。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val=None, children=None):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.children = children</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">levelOrder</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> []</span><br><span class="line">        ans = <span class="built_in">list</span>()</span><br><span class="line">        cur = deque([root])	<span class="comment"># 存储当前层root集合</span></span><br><span class="line">        <span class="comment"># 当cur为空时停止</span></span><br><span class="line">        <span class="keyword">while</span>(cur):</span><br><span class="line">            cnt = <span class="built_in">len</span>(cur) <span class="comment"># 当前层root数量</span></span><br><span class="line">            cur_ans = <span class="built_in">list</span>()	<span class="comment"># 当前层root.val列表</span></span><br><span class="line">            <span class="comment"># 遍历cur直到当前层结束</span></span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(cnt):</span><br><span class="line">                <span class="comment"># 对每个root节点：取出val,并将children加入cur</span></span><br><span class="line">                cur_node = cur.popleft()	</span><br><span class="line">                cur_ans.append(cur_node.val)</span><br><span class="line">                <span class="keyword">for</span> child <span class="keyword">in</span> cur_node.children:</span><br><span class="line">                    cur.append(child)</span><br><span class="line">            <span class="comment"># 将当前层的val列表加入ans    </span></span><br><span class="line">            ans.append(cur_ans)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44799217/article/details/111750881">python中的pop()函数和popleft()函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41018467/article/details/83181616">python deque用法</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-遗传算法解决TSP问题C++实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -171,13 +264,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="遗传算法解决TSP问题C-实现"><a href="#遗传算法解决TSP问题C-实现" class="headerlink" title="遗传算法解决TSP问题C++实现"></a>遗传算法解决TSP问题C++实现</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>代码读入txt文件中的各城市间距离，使用遗传算法，逐代进行交叉、变异、选择、局部搜索，得到最优个体。</p>
+        <h1 id="遗传算法解决TSP问题C-实现"><a href="#遗传算法解决TSP问题C-实现" class="headerlink" title="遗传算法解决TSP问题C++实现"></a>遗传算法解决TSP问题C++实现</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>读入txt文件中的各城市间距离，使用遗传算法，逐代进行交叉、变异、选择、局部搜索，得到最优个体。</p>
 <ul>
 <li><p><strong>交叉</strong>：两点交叉。</p>
 <img src="https://raw.githubusercontent.com/Rthete/blog_image/master/4/image-20220405172624094.png" alt="image-20220405172624094" style="zoom:33%;" />
 </li>
 <li><p><strong>变异</strong>：对换变异。</p>
-<p>随机地在染色体上选取两个位 置，交换两位置的基因。<br>$$<br>4 {\color{red}{3}} 1 2 {\color{green}{5}} 6 7 \rightarrow 4 {\color{green}{5}} 1 2 {\color{red}{3}} 6 7<br>$$</p>
+<p>随机地在染色体上选取两个位置，交换两位置的基因。<br>$$<br>4 {\color{red}{3}} 1 2 {\color{green}{5}} 6 7 \rightarrow 4 {\color{green}{5}} 1 2 {\color{red}{3}} 6 7<br>$$</p>
 </li>
 <li><p><strong>选择</strong>：<code>selectPop</code>中随机选择两个染色体，进行比较，选择适应值较高的加入<code>allPop</code>，该过程重复$G-5$次。最后挑出<code>selectPop</code>中最好的<code>5</code>个个体，加入<code>allPop</code>。注意到<code>selectPop</code>的组成，在每代中：</p>
 <p>先由<strong>allPop</strong>赋值$\rightarrow$加入<strong>交叉后的子代</strong>$\rightarrow$加入<strong>变异后的子代</strong></p>
@@ -309,14 +402,14 @@
 
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题的重点主要在</p>
 <ol>
-<li><p><strong>判断质数的方法</strong></p>
+<li><p>判断质数的方法</p>
 <p>本题使用时间复杂度$O(\sqrt{n})$的枚举法不会超时，但可以参考<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/">204. 计数质数</a>中的各个方法继续改进：</p>
 <ul>
 <li>埃氏筛</li>
 <li>线性筛</li>
 </ul>
 </li>
-<li><p><strong>统计二进制1的个数</strong></p>
+<li><p>统计二进制1的个数</p>
 <p>可以简单的遍历，也可以使用库函数。</p>
 </li>
 </ol>
@@ -330,7 +423,7 @@
 <p><code>bin()</code>函数返回<code>value</code>的二进制形式。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isPrime</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        i = <span class="number">2</span></span><br><span class="line">        <span class="keyword">while</span> i * i &lt;= x:</span><br><span class="line">            <span class="keyword">if</span> x % i == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countPrimeSetBits</span>(<span class="params">self, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(self.isPrime(x.bit_count()) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(left, right + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 
-<h2 id="方法3-判断质数优化"><a href="#方法3-判断质数优化" class="headerlink" title="方法3 判断质数优化"></a>方法3 判断质数优化</h2><p>注意到 $\textit{right} \le 10^6 &lt; 2^{20}$，因此二进制中1的个数不会超过19，而不超过19的质数只有<br>$$<br>2, 3, 5, 7, 11, 13, 17, 19<br>$$<br>我们可以用一个二进制数$ \textit{mask}&#x3D;665772&#x3D;10100010100010101100_{2}$来存储这些质数，其中$\textit{mask}$二进制的从低到高的第$i$位为 1表示$i$是质数，为0表示$i$不是质数。</p>
+<h2 id="方法3-判断质数优化"><a href="#方法3-判断质数优化" class="headerlink" title="方法3 判断质数优化"></a>方法3 判断质数优化</h2><p>注意到 $\textit{right} \le 10^6 &lt; 2^{20}$，因此二进制中1的个数不会超过19，而不超过19的质数只有<br>$$<br>2, 3, 5, 7, 11, 13, 17, 19<br>$$<br>我们可以用一个二进制数$ \textit{mask}&#x3D;665772&#x3D;10100010100010101100_{2}$来存储这些质数，其中$\textit{mask}$二进制的从低到高的第$i$位为1表示$i$是质数，为0表示$i$不是质数。</p>
 <p>设整数$x$的二进制中1的个数为$c$，若$\textit{mask}$按位与（两个都为1，结果才为1）$2^c$不为0，则说明$c$是一个质数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countPrimeSetBits</span>(<span class="params">self, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(((<span class="number">1</span> &lt;&lt; x.bit_count()) &amp; <span class="number">665772</span>) != <span class="number">0</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(left, right + <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 
@@ -1061,109 +1154,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-172. 阶乘后的零" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">172. 阶乘后的零</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/" class="archive-article-date">
-  	<time datetime="2022-03-25T14:53:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/">172. 阶乘后的零</a></p>
-<p>给定一个整数 <code>n</code> ，返回 <code>n!</code> 结果中尾随零的数量。</p>
-<p>提示 <code>n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1</code></p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3</span><br><span class="line">输出：0</span><br><span class="line">解释：3! = 6 ，不含尾随 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 5</span><br><span class="line">输出：1</span><br><span class="line">解释：5! = 120 ，有一个尾随 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 3：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 0</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>遍历1到n，算每个数字的因子2的个数<code>cnt2</code>、5的个数<code>cnt5</code>，最后取<code>min(cnt2,cnt5)</code>，即为能乘出10的数量，即尾随零数量。还是相当简单~</p>
-<p>不过还有更好的解法，即：</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/xiang-xi-tong-su-de-si-lu-fen-xi-by-windliang-3/">leetcode题解by windliang</a></p>
-<p>对于一个数的阶乘，就如之前分析的，5的因子一定是每隔 5个数出现一次，</p>
-<p>$n! &#x3D; 1 * 2 * 3 * 4 * (1 * 5) * … * (2 * 5) * … * (3 * 5) *… * n$</p>
-<p>因为每隔 5个数出现一个5，所以计算出现了多少个5，我们只需要用<code>n/5</code>就可以算出来。</p>
-<p>但还没有结束，继续分析。</p>
-<p>$… * (1 * 5) * … * (1 * 5 * 5) * … * (2 * 5 * 5) * … * (3 * 5 * 5) * … * n$</p>
-<p>每隔25个数字，出现的是两个5，所以除了每隔5个数算作一个5，每隔25个数，还需要多算一个5。</p>
-<p>也就是我们需要再加上<code>n/25</code>个5。</p>
-<p>同理我们还会发现每隔$5 * 5 * 5 &#x3D; 125$个数字，会出现3个5，所以我们还需要再加上<code>n / 125</code>。</p>
-<p>综上，规律就是每隔5个数，出现一个5，每隔25个数，出现2个5，每隔125个数，出现3个5… 以此类推。</p>
-<p>最终5的个数就是$n &#x2F; 5 + n &#x2F; 25 + n &#x2F; 125 …$</p>
-<p>写程序的话，如果直接按照上边的式子计算，分母可能会造成溢出。所以算 n &#x2F; 25 的时候，我们先把 n 更新，n &#x3D; n &#x2F; 5，然后再计算 n &#x2F; 5 即可。后边的同理。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="方法一-朴素"><a href="#方法一-朴素" class="headerlink" title="方法一 朴素"></a>方法一 朴素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">trailingZeroes</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        cnt2 = <span class="number">0</span></span><br><span class="line">        cnt5 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n+<span class="number">1</span>):</span><br><span class="line">            x = i</span><br><span class="line">            <span class="keyword">while</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">or</span> x % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                    x = x / <span class="number">2</span></span><br><span class="line">                    cnt2 += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> x % <span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">                    x = x / <span class="number">5</span></span><br><span class="line">                    cnt5 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(cnt2, cnt5)</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法二-优化"><a href="#方法二-优化" class="headerlink" title="方法二 优化"></a>方法二 优化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">trailingZeroes</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            n //= <span class="number">5</span></span><br><span class="line">            ans += n</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">more >></a>
         </p>
       
 
