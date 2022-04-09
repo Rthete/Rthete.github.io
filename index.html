@@ -151,6 +151,117 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-780. 到达终点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/">780. 到达终点</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2022-04-09T06:52:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reaching-points/">780. 到达终点</a></p>
+<p>给定四个整数<code>sx</code>,<code>sy</code>，<code>tx</code>和<code>ty</code>，如果通过一系列的<strong>转换</strong>可以从起点<code>(sx, sy)</code>到达终点<code>(tx, ty)</code>，则返回<code>true</code>，否则返回<code>false</code>。</p>
+<p>从点<code>(x, y)</code>可以<strong>转换</strong>到<code>(x, x+y)</code> 或者<code>(x+y, y)</code>。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 3, ty = 5</span><br><span class="line">输出: true</span><br><span class="line">解释:</span><br><span class="line">可以通过以下一系列转换从起点转换到终点：</span><br><span class="line">(1, 1) -&gt; (1, 2)</span><br><span class="line">(1, 2) -&gt; (3, 2)</span><br><span class="line">(3, 2) -&gt; (3, 5)</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 2, ty = 2 </span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 1, ty = 1 </span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法1-暴力"><a href="#方法1-暴力" class="headerlink" title="方法1 暴力"></a>方法1 暴力</h2><p>从<code>sx,sy</code>一直递归到<code>tx,ty</code>，直接超过循环次数，像个小丑……</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reachingPoints</span>(<span class="params">self, sx: <span class="built_in">int</span>, sy: <span class="built_in">int</span>, tx: <span class="built_in">int</span>, ty: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> sx == tx <span class="keyword">and</span> sy == ty: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> sx &gt; tx <span class="keyword">or</span> sy &gt; ty: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> sx &lt;= tx <span class="keyword">and</span> sy &lt;= ty:</span><br><span class="line">            <span class="keyword">return</span> self.reachingPoints(sx, sx+sy, tx, ty) <span class="keyword">or</span> self.reachingPoints(sx+sy, sy, tx, ty)</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2-反向计算"><a href="#方法2-反向计算" class="headerlink" title="方法2 反向计算"></a>方法2 反向计算</h2><p>从终点<code>tx,ty</code>减小，反向计算，判断是否可达<code>sx,sy</code>。分析：</p>
+<p>对于给定的状态$(\textit{tx}, \textit{ty})$，只有当$\textit{tx} \ne \textit{ty}$时才存在上一个状态，且上一个状态唯一，可能的情况如下：</p>
+<ul>
+<li>如果$\textit{tx} &#x3D; \textit{ty}$，不存在上一个状态，状态$(\textit{tx}, \textit{ty})$即为起点状态；</li>
+<li>如果$\textit{tx} &gt; \textit{ty}$，则上一个状态是$(\textit{tx} - \textit{ty}, \textit{ty})$；</li>
+<li>如果$\textit{tx} &lt; \textit{ty}$，则上一个状态是$(\textit{tx}, \textit{ty} - \textit{tx})$。</li>
+</ul>
+<p>具体操作如下：</p>
+<p>当$\textit{tx} &gt; \textit{sx}$, $\textit{ty} &gt; \textit{sy}$, $\textit{tx} \ne \textit{ty}$时，执行反向操作，每一步将<code>tx,ty</code>中较大的值减小。当$\textit{tx} &gt; \textit{ty}$，使$tx &#x3D; tx\bmod ty$；当$\textit{ty} &gt; \textit{tx}$，使$ty &#x3D; ty\bmod tx$。</p>
+<p>每次判断：</p>
+<ul>
+<li><p>如果 $tx&#x3D;sx$且$ty&#x3D;sy$，则已经到达起点状态，因此可以从起点转换到终点。</p>
+</li>
+<li><p>如果$tx&#x3D;sx$且$\textit{ty} \ne \textit{sy}$，则$tx$不能继续减小，只能减小$ty$，因此只有当$\textit{ty} &gt; \textit{sy}$且$(\textit{ty} - \textit{sy}) \bmod \textit{tx} &#x3D; 0$时可以从起点转换到终点。</p>
+</li>
+<li><p>如果$\textit{ty} &#x3D; \textit{sy}$且$\textit{tx} \ne \textit{sx}$，则$\textit{ty}$不能继续减小，只能减小$\textit{tx}$，因此只有当$\textit{tx} &gt; \textit{sx}$且$(\textit{tx} - \textit{sx}) \bmod \textit{ty} &#x3D; 0$时可以从起点转换到终点。</p>
+</li>
+<li><p>如果$\textit{tx} \ne \textit{sx}$且$\textit{ty} \ne \textit{sy}$，则不可以从起点转换到终点。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reachingPoints</span>(<span class="params">self, sx: <span class="built_in">int</span>, sy: <span class="built_in">int</span>, tx: <span class="built_in">int</span>, ty: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="comment">#循环中将tx,ty消减到不超过sx,sy</span></span><br><span class="line">        <span class="keyword">while</span> sx &lt; tx != ty &gt; sy:	<span class="comment"># 这个条件等价于：sy&lt;tx and tx!=ty and ty&gt;tx</span></span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty:</span><br><span class="line">                tx %= ty</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ty %= tx</span><br><span class="line">        <span class="keyword">if</span> tx == sx <span class="keyword">and</span> ty == sy:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> tx == sx:</span><br><span class="line">            <span class="keyword">return</span> ty &gt; sy <span class="keyword">and</span> (ty - sy) % tx == <span class="number">0</span></span><br><span class="line">        <span class="keyword">elif</span> ty == sy:</span><br><span class="line">            <span class="keyword">return</span> tx &gt; sx <span class="keyword">and</span> (tx - sx) % ty == <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chouzhou9701/article/details/88694795">关于 python 中比较运算的顺序</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-429. N 叉树的层序遍历" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1053,107 +1164,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/27/2028.%20%E6%89%BE%E5%87%BA%E7%BC%BA%E5%A4%B1%E7%9A%84%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-682. 棒球比赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">682. 棒球比赛</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2022-03-26T07:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/baseball-game/">682. 棒球比赛</a></p>
-<p>你现在是一场采用特殊赛制棒球比赛的记录员。这场比赛由若干回合组成，过去几回合的得分可能会影响以后几回合的得分。</p>
-<p>比赛开始时，记录是空白的。你会得到一个记录操作的字符串列表<code>ops</code>，其中<code>ops[i]</code>是你需要记录的第<code>i</code>项操作，<code>ops</code>遵循下述规则：</p>
-<ol>
-<li>整数<code>x</code> - 表示本回合新获得分数<code>x</code></li>
-<li><code>&quot;+&quot;</code> - 表示本回合新获得的得分是前两次得分的总和。题目数据保证记录此操作时前面总是存在两个有效的分数。</li>
-<li><code>&quot;D&quot;</code> - 表示本回合新获得的得分是前一次得分的两倍。题目数据保证记录此操作时前面总是存在一个有效的分数。</li>
-<li><code>&quot;C&quot;</code> - 表示前一次得分无效，将其从记录中移除。题目数据保证记录此操作时前面总是存在一个有效的分数。</li>
-</ol>
-<p>请你返回记录中所有得分的总和。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：ops = [&quot;5&quot;,&quot;2&quot;,&quot;C&quot;,&quot;D&quot;,&quot;+&quot;]</span><br><span class="line">输出：30</span><br><span class="line">解释：</span><br><span class="line">&quot;5&quot; - 记录加 5 ，记录现在是 [5]</span><br><span class="line">&quot;2&quot; - 记录加 2 ，记录现在是 [5, 2]</span><br><span class="line">&quot;C&quot; - 使前一次得分的记录无效并将其移除，记录现在是 [5].</span><br><span class="line">&quot;D&quot; - 记录加 2 * 5 = 10 ，记录现在是 [5, 10].</span><br><span class="line">&quot;+&quot; - 记录加 5 + 10 = 15 ，记录现在是 [5, 10, 15].</span><br><span class="line">所有得分的总和 5 + 10 + 15 = 30</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：ops = [&quot;5&quot;,&quot;-2&quot;,&quot;4&quot;,&quot;C&quot;,&quot;D&quot;,&quot;9&quot;,&quot;+&quot;,&quot;+&quot;]</span><br><span class="line">输出：27</span><br><span class="line">解释：</span><br><span class="line">&quot;5&quot; - 记录加 5 ，记录现在是 [5]</span><br><span class="line">&quot;-2&quot; - 记录加 -2 ，记录现在是 [5, -2]</span><br><span class="line">&quot;4&quot; - 记录加 4 ，记录现在是 [5, -2, 4]</span><br><span class="line">&quot;C&quot; - 使前一次得分的记录无效并将其移除，记录现在是 [5, -2]</span><br><span class="line">&quot;D&quot; - 记录加 2 * -2 = -4 ，记录现在是 [5, -2, -4]</span><br><span class="line">&quot;9&quot; - 记录加 9 ，记录现在是 [5, -2, -4, 9]</span><br><span class="line">&quot;+&quot; - 记录加 -4 + 9 = 5 ，记录现在是 [5, -2, -4, 9, 5]</span><br><span class="line">&quot;+&quot; - 记录加 9 + 5 = 14 ，记录现在是 [5, -2, -4, 9, 5, 14]</span><br><span class="line">所有得分的总和 5 + -2 + -4 + 9 + 5 + 14 = 27</span><br></pre></td></tr></table></figure>
-
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>简单的字符串处理问题，判断<code>ops</code>元素为<code>C</code> or <code>D</code> or <code>+</code> or <code>数字</code>，注意这里数字可能为负数，一开始用了<code>str.isdigit()</code>函数，谁曾想这个只能用来判定正整数…于是直接一个else解决。</p>
-<p>因为不想增加空间所以原地在ops上记录分数，定义了一个指针<code>ptr</code>用来记录纯得分（不包含操作符）。</p>
-<p>其他的解通常为通过定义一个栈（数字列表）来存储得分的记录（不包含操作符）。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ptr, score = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            <span class="keyword">if</span> op == <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) + <span class="built_in">int</span>(ops[ptr-<span class="number">2</span>]))</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) * <span class="number">2</span>)</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                score -= <span class="built_in">int</span>(ops[ptr-<span class="number">1</span>])</span><br><span class="line">                ptr -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                score += <span class="built_in">int</span>(op)</span><br><span class="line">                ops[ptr] = <span class="built_in">int</span>(op)</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br></pre></td></tr></table></figure>
-
-<h3 id="实现2"><a href="#实现2" class="headerlink" title="实现2"></a>实现2</h3><p>参考了<a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/azusatsang/">https://leetcode-cn.com/u/azusatsang/</a></p>
-<p>使用<code>match-case</code>方法，更加简洁：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            match op:</span><br><span class="line">                case <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                    stk.pop()</span><br><span class="line">                case <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] * <span class="number">2</span>)</span><br><span class="line">                case <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] + stk[-<span class="number">2</span>])</span><br><span class="line">                case _:</span><br><span class="line">                    stk.append(<span class="built_in">int</span>(op))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(stk)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shanliangliuxing/article/details/7920400">python数据类型转换（str跟int的转换）</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">more >></a>
         </p>
       
 

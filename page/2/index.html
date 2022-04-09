@@ -151,6 +151,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-682. 棒球比赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">682. 棒球比赛</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/" class="archive-article-date">
+  	<time datetime="2022-03-26T07:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/baseball-game/">682. 棒球比赛</a></p>
+<p>你现在是一场采用特殊赛制棒球比赛的记录员。这场比赛由若干回合组成，过去几回合的得分可能会影响以后几回合的得分。</p>
+<p>比赛开始时，记录是空白的。你会得到一个记录操作的字符串列表<code>ops</code>，其中<code>ops[i]</code>是你需要记录的第<code>i</code>项操作，<code>ops</code>遵循下述规则：</p>
+<ol>
+<li>整数<code>x</code> - 表示本回合新获得分数<code>x</code></li>
+<li><code>&quot;+&quot;</code> - 表示本回合新获得的得分是前两次得分的总和。题目数据保证记录此操作时前面总是存在两个有效的分数。</li>
+<li><code>&quot;D&quot;</code> - 表示本回合新获得的得分是前一次得分的两倍。题目数据保证记录此操作时前面总是存在一个有效的分数。</li>
+<li><code>&quot;C&quot;</code> - 表示前一次得分无效，将其从记录中移除。题目数据保证记录此操作时前面总是存在一个有效的分数。</li>
+</ol>
+<p>请你返回记录中所有得分的总和。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：ops = [&quot;5&quot;,&quot;2&quot;,&quot;C&quot;,&quot;D&quot;,&quot;+&quot;]</span><br><span class="line">输出：30</span><br><span class="line">解释：</span><br><span class="line">&quot;5&quot; - 记录加 5 ，记录现在是 [5]</span><br><span class="line">&quot;2&quot; - 记录加 2 ，记录现在是 [5, 2]</span><br><span class="line">&quot;C&quot; - 使前一次得分的记录无效并将其移除，记录现在是 [5].</span><br><span class="line">&quot;D&quot; - 记录加 2 * 5 = 10 ，记录现在是 [5, 10].</span><br><span class="line">&quot;+&quot; - 记录加 5 + 10 = 15 ，记录现在是 [5, 10, 15].</span><br><span class="line">所有得分的总和 5 + 10 + 15 = 30</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：ops = [&quot;5&quot;,&quot;-2&quot;,&quot;4&quot;,&quot;C&quot;,&quot;D&quot;,&quot;9&quot;,&quot;+&quot;,&quot;+&quot;]</span><br><span class="line">输出：27</span><br><span class="line">解释：</span><br><span class="line">&quot;5&quot; - 记录加 5 ，记录现在是 [5]</span><br><span class="line">&quot;-2&quot; - 记录加 -2 ，记录现在是 [5, -2]</span><br><span class="line">&quot;4&quot; - 记录加 4 ，记录现在是 [5, -2, 4]</span><br><span class="line">&quot;C&quot; - 使前一次得分的记录无效并将其移除，记录现在是 [5, -2]</span><br><span class="line">&quot;D&quot; - 记录加 2 * -2 = -4 ，记录现在是 [5, -2, -4]</span><br><span class="line">&quot;9&quot; - 记录加 9 ，记录现在是 [5, -2, -4, 9]</span><br><span class="line">&quot;+&quot; - 记录加 -4 + 9 = 5 ，记录现在是 [5, -2, -4, 9, 5]</span><br><span class="line">&quot;+&quot; - 记录加 9 + 5 = 14 ，记录现在是 [5, -2, -4, 9, 5, 14]</span><br><span class="line">所有得分的总和 5 + -2 + -4 + 9 + 5 + 14 = 27</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>简单的字符串处理问题，判断<code>ops</code>元素为<code>C</code> or <code>D</code> or <code>+</code> or <code>数字</code>，注意这里数字可能为负数，一开始用了<code>str.isdigit()</code>函数，谁曾想这个只能用来判定正整数…于是直接一个else解决。</p>
+<p>因为不想增加空间所以原地在ops上记录分数，定义了一个指针<code>ptr</code>用来记录纯得分（不包含操作符）。</p>
+<p>其他的解通常为通过定义一个栈（数字列表）来存储得分的记录（不包含操作符）。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ptr, score = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            <span class="keyword">if</span> op == <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) + <span class="built_in">int</span>(ops[ptr-<span class="number">2</span>]))</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                ops[ptr] = <span class="built_in">str</span>(<span class="built_in">int</span>(ops[ptr-<span class="number">1</span>]) * <span class="number">2</span>)</span><br><span class="line">                score += <span class="built_in">int</span>(ops[ptr])</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> op == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                score -= <span class="built_in">int</span>(ops[ptr-<span class="number">1</span>])</span><br><span class="line">                ptr -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                score += <span class="built_in">int</span>(op)</span><br><span class="line">                ops[ptr] = <span class="built_in">int</span>(op)</span><br><span class="line">                ptr += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现2"><a href="#实现2" class="headerlink" title="实现2"></a>实现2</h3><p>参考了<a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/azusatsang/">https://leetcode-cn.com/u/azusatsang/</a></p>
+<p>使用<code>match-case</code>方法，更加简洁：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calPoints</span>(<span class="params">self, ops: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> ops:</span><br><span class="line">            match op:</span><br><span class="line">                case <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">                    stk.pop()</span><br><span class="line">                case <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] * <span class="number">2</span>)</span><br><span class="line">                case <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stk.append(stk[-<span class="number">1</span>] + stk[-<span class="number">2</span>])</span><br><span class="line">                case _:</span><br><span class="line">                    stk.append(<span class="built_in">int</span>(op))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(stk)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shanliangliuxing/article/details/7920400">python数据类型转换（str跟int的转换）</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-172. 阶乘后的零" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

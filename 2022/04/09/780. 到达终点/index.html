@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>429. N 叉树的层序遍历 | Twice!</title>
+  <title>780. 到达终点 | Twice!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="429. N 叉树的层序遍历 给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。 树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。 示例 1：   12输入：root &#x3D; [1,null,3,2,4,null,5,6]输出：[[1],[3,2,4],[5,6]]  示例 2：   12输入：root &#x3D; [1,null,2,3,4,5,null,nul">
+  <meta name="description" content="780. 到达终点 给定四个整数sx,sy，tx和ty，如果通过一系列的转换可以从起点(sx, sy)到达终点(tx, ty)，则返回true，否则返回false。 从点(x, y)可以转换到(x, x+y) 或者(x+y, y)。 示例 1: 1234567输入: sx &#x3D; 1, sy &#x3D; 1, tx &#x3D; 3, ty &#x3D; 5输出: true解释:可以通过以下一系列转换从起点转换到终点：(1, 1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="429. N 叉树的层序遍历">
-<meta property="og:url" content="http://example.com/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:title" content="780. 到达终点">
+<meta property="og:url" content="http://example.com/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/index.html">
 <meta property="og:site_name" content="Twice!">
-<meta property="og:description" content="429. N 叉树的层序遍历 给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。 树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。 示例 1：   12输入：root &#x3D; [1,null,3,2,4,null,5,6]输出：[[1],[3,2,4],[5,6]]  示例 2：   12输入：root &#x3D; [1,null,2,3,4,5,null,nul">
+<meta property="og:description" content="780. 到达终点 给定四个整数sx,sy，tx和ty，如果通过一系列的转换可以从起点(sx, sy)到达终点(tx, ty)，则返回true，否则返回false。 从点(x, y)可以转换到(x, x+y) 或者(x+y, y)。 示例 1: 1234567输入: sx &#x3D; 1, sy &#x3D; 1, tx &#x3D; 3, ty &#x3D; 5输出: true解释:可以通过以下一系列转换从起点转换到终点：(1, 1">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png">
-<meta property="og:image" content="https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png">
-<meta property="article:published_time" content="2022-04-08T11:40:39.000Z">
-<meta property="article:modified_time" content="2022-04-08T11:42:34.368Z">
+<meta property="article:published_time" content="2022-04-09T06:52:06.000Z">
+<meta property="article:modified_time" content="2022-04-09T06:53:58.932Z">
 <meta property="article:author" content="Rthete">
 <meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png">
   
     <link rel="alternative" href="/atom.xml" title="Twice!" type="application/atom+xml">
   
@@ -154,46 +151,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-429. N 叉树的层序遍历" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-780. 到达终点" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      429. N 叉树的层序遍历
+      780. 到达终点
     </h1>
   
 
         
-        <a href="/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="archive-article-date">
-  	<time datetime="2022-04-08T11:40:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-08</time>
+        <a href="/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2022-04-09T06:52:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/">429. N 叉树的层序遍历</a></p>
-<p>给定一个 N 叉树，返回其节点值的<em>层序遍历</em>。（即从左到右，逐层遍历）。</p>
-<p>树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。</p>
-<p><strong>示例 1：</strong></p>
-<img src="https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png" style="zoom:50%;" />
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reaching-points/">780. 到达终点</a></p>
+<p>给定四个整数<code>sx</code>,<code>sy</code>，<code>tx</code>和<code>ty</code>，如果通过一系列的<strong>转换</strong>可以从起点<code>(sx, sy)</code>到达终点<code>(tx, ty)</code>，则返回<code>true</code>，否则返回<code>false</code>。</p>
+<p>从点<code>(x, y)</code>可以<strong>转换</strong>到<code>(x, x+y)</code> 或者<code>(x+y, y)</code>。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 3, ty = 5</span><br><span class="line">输出: true</span><br><span class="line">解释:</span><br><span class="line">可以通过以下一系列转换从起点转换到终点：</span><br><span class="line">(1, 1) -&gt; (1, 2)</span><br><span class="line">(1, 2) -&gt; (3, 2)</span><br><span class="line">(3, 2) -&gt; (3, 5)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,3,2,4,null,5,6]</span><br><span class="line">输出：[[1],[3,2,4],[5,6]]</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 2, ty = 2 </span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
 
-<p><strong>示例 2：</strong></p>
-<img src="https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png" style="zoom:50%;" />
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: sx = 1, sy = 1, tx = 1, ty = 1 </span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]</span><br><span class="line">输出：[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]</span><br></pre></td></tr></table></figure>
+<h2 id="方法1-暴力"><a href="#方法1-暴力" class="headerlink" title="方法1 暴力"></a>方法1 暴力</h2><p>从<code>sx,sy</code>一直递归到<code>tx,ty</code>，直接超过循环次数，像个小丑……</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reachingPoints</span>(<span class="params">self, sx: <span class="built_in">int</span>, sy: <span class="built_in">int</span>, tx: <span class="built_in">int</span>, ty: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> sx == tx <span class="keyword">and</span> sy == ty: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> sx &gt; tx <span class="keyword">or</span> sy &gt; ty: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> sx &lt;= tx <span class="keyword">and</span> sy &lt;= ty:</span><br><span class="line">            <span class="keyword">return</span> self.reachingPoints(sx, sx+sy, tx, ty) <span class="keyword">or</span> self.reachingPoints(sx+sy, sy, tx, ty)</span><br></pre></td></tr></table></figure>
 
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>层序遍历的基础题、广度优先搜索</strong></p>
-<p>使用一个队列<code>cur</code>来存储每层的root节点，也可以使用list，但效率低。</p>
-<p>每次遍历这一层的节点，取出节点值并将下一列（即children）加入cur，注意此处只用了一个<code>cur</code>来存储，通过每层节点的数量<code>len(cur)</code>来分层。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val=None, children=None):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.children = children</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">levelOrder</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span> []</span><br><span class="line">        ans = <span class="built_in">list</span>()</span><br><span class="line">        cur = deque([root])	<span class="comment"># 存储当前层root集合</span></span><br><span class="line">        <span class="comment"># 当cur为空时停止</span></span><br><span class="line">        <span class="keyword">while</span>(cur):</span><br><span class="line">            cnt = <span class="built_in">len</span>(cur) <span class="comment"># 当前层root数量</span></span><br><span class="line">            cur_ans = <span class="built_in">list</span>()	<span class="comment"># 当前层root.val列表</span></span><br><span class="line">            <span class="comment"># 遍历cur直到当前层结束</span></span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(cnt):</span><br><span class="line">                <span class="comment"># 对每个root节点：取出val,并将children加入cur</span></span><br><span class="line">                cur_node = cur.popleft()	</span><br><span class="line">                cur_ans.append(cur_node.val)</span><br><span class="line">                <span class="keyword">for</span> child <span class="keyword">in</span> cur_node.children:</span><br><span class="line">                    cur.append(child)</span><br><span class="line">            <span class="comment"># 将当前层的val列表加入ans    </span></span><br><span class="line">            ans.append(cur_ans)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<h2 id="方法2-反向计算"><a href="#方法2-反向计算" class="headerlink" title="方法2 反向计算"></a>方法2 反向计算</h2><p>从终点<code>tx,ty</code>减小，反向计算，判断是否可达<code>sx,sy</code>。分析：</p>
+<p>对于给定的状态$(\textit{tx}, \textit{ty})$，只有当$\textit{tx} \ne \textit{ty}$时才存在上一个状态，且上一个状态唯一，可能的情况如下：</p>
+<ul>
+<li>如果$\textit{tx} &#x3D; \textit{ty}$，不存在上一个状态，状态$(\textit{tx}, \textit{ty})$即为起点状态；</li>
+<li>如果$\textit{tx} &gt; \textit{ty}$，则上一个状态是$(\textit{tx} - \textit{ty}, \textit{ty})$；</li>
+<li>如果$\textit{tx} &lt; \textit{ty}$，则上一个状态是$(\textit{tx}, \textit{ty} - \textit{tx})$。</li>
+</ul>
+<p>具体操作如下：</p>
+<p>当$\textit{tx} &gt; \textit{sx}$, $\textit{ty} &gt; \textit{sy}$, $\textit{tx} \ne \textit{ty}$时，执行反向操作，每一步将<code>tx,ty</code>中较大的值减小。当$\textit{tx} &gt; \textit{ty}$，使$tx &#x3D; tx\bmod ty$；当$\textit{ty} &gt; \textit{tx}$，使$ty &#x3D; ty\bmod tx$。</p>
+<p>每次判断：</p>
+<ul>
+<li><p>如果 $tx&#x3D;sx$且$ty&#x3D;sy$，则已经到达起点状态，因此可以从起点转换到终点。</p>
+</li>
+<li><p>如果$tx&#x3D;sx$且$\textit{ty} \ne \textit{sy}$，则$tx$不能继续减小，只能减小$ty$，因此只有当$\textit{ty} &gt; \textit{sy}$且$(\textit{ty} - \textit{sy}) \bmod \textit{tx} &#x3D; 0$时可以从起点转换到终点。</p>
+</li>
+<li><p>如果$\textit{ty} &#x3D; \textit{sy}$且$\textit{tx} \ne \textit{sx}$，则$\textit{ty}$不能继续减小，只能减小$\textit{tx}$，因此只有当$\textit{tx} &gt; \textit{sx}$且$(\textit{tx} - \textit{sx}) \bmod \textit{ty} &#x3D; 0$时可以从起点转换到终点。</p>
+</li>
+<li><p>如果$\textit{tx} \ne \textit{sx}$且$\textit{ty} \ne \textit{sy}$，则不可以从起点转换到终点。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reachingPoints</span>(<span class="params">self, sx: <span class="built_in">int</span>, sy: <span class="built_in">int</span>, tx: <span class="built_in">int</span>, ty: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="comment">#循环中将tx,ty消减到不超过sx,sy</span></span><br><span class="line">        <span class="keyword">while</span> sx &lt; tx != ty &gt; sy:	<span class="comment"># 这个条件等价于：sy&lt;tx and tx!=ty and ty&gt;tx</span></span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty:</span><br><span class="line">                tx %= ty</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ty %= tx</span><br><span class="line">        <span class="keyword">if</span> tx == sx <span class="keyword">and</span> ty == sy:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> tx == sx:</span><br><span class="line">            <span class="keyword">return</span> ty &gt; sy <span class="keyword">and</span> (ty - sy) % tx == <span class="number">0</span></span><br><span class="line">        <span class="keyword">elif</span> ty == sy:</span><br><span class="line">            <span class="keyword">return</span> tx &gt; sx <span class="keyword">and</span> (tx - sx) % ty == <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44799217/article/details/111750881">python中的pop()函数和popleft()函数</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41018467/article/details/83181616">python deque用法</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chouzhou9701/article/details/88694795">关于 python 中比较运算的顺序</a></p>
 
       
 
@@ -263,7 +278,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,18 +292,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/09/780.%20%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          780. 到达终点
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/04/05/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3TSP%E9%97%AE%E9%A2%98C++%E5%AE%9E%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">遗传算法解决TSP问题C++实现</div>
+    <a href="/2022/04/08/429.%20N%20%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">429. N 叉树的层序遍历</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -315,7 +321,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">知识</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951-%E6%9A%B4%E5%8A%9B"><span class="toc-number">1.</span> <span class="toc-text">方法1 暴力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952-%E5%8F%8D%E5%90%91%E8%AE%A1%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">方法2 反向计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">知识</span></a></li></ol>
                     </div>
                 </span>
             </div>
