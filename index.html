@@ -151,6 +151,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-357. 统计各位数字都不同的数字个数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/11/357.%20%E7%BB%9F%E8%AE%A1%E5%90%84%E4%BD%8D%E6%95%B0%E5%AD%97%E9%83%BD%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0/">【M】357. 统计各位数字都不同的数字个数</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/11/357.%20%E7%BB%9F%E8%AE%A1%E5%90%84%E4%BD%8D%E6%95%B0%E5%AD%97%E9%83%BD%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2022-04-11T03:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-numbers-with-unique-digits/">357. 统计各位数字都不同的数字个数</a></p>
+<p>给你一个整数$n$，统计并返回各位数字都不同的数字$x$的个数，其中 $0 &lt;&#x3D; x &lt; 10^n$ 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2</span><br><span class="line">输出：91</span><br><span class="line">解释：答案应为除去 11、22、33、44、55、66、77、88、99 外，在 0 ≤ x &lt; 100 范围内的所有数字。 </span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 0</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+
+
+<p>提示：<code>0 &lt;= n &lt;= 8</code></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>排列组合数学题：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">0</span>)</span>=1 </span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">1</span>)</span>=10</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">2</span>)</span>=9*9+<span class="title">f</span><span class="params">(<span class="number">1</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">3</span>)</span>=9*9*8+<span class="title">f</span><span class="params">(<span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">4</span>)</span>=9*9*8*7+<span class="title">f</span><span class="params">(<span class="number">3</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从左边开始数</li>
+<li>首位数不取 0 其他位数可以取 0，下一位比前一位取法少一种，因为不能重复</li>
+<li>首位数取 0 时就是 f(n-1)的数量</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countNumbersWithUniqueDigits</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">10</span></span><br><span class="line">        res, cur = <span class="number">10</span>, <span class="number">9</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">            cur *= <span class="number">9</span> - i</span><br><span class="line">            res += cur</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/11/357.%20%E7%BB%9F%E8%AE%A1%E5%90%84%E4%BD%8D%E6%95%B0%E5%AD%97%E9%83%BD%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-leetcode刷题积累" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1104,118 +1197,9 @@
 
 
   
-    <article id="post-2024. 考试的最大困扰度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/30/2024.%20%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/">2024. 考试的最大困扰度</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/30/2024.%20%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/" class="archive-article-date">
-  	<time datetime="2022-03-30T08:16:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/">2024. 考试的最大困扰度</a></p>
-<p>一位老师正在出一场由<code>n</code>道判断题构成的考试，每道题的答案为<code>true</code>（用<code>&#39;T&#39;</code>表示）或者<code>false</code>（用<code>&#39;F&#39;</code>表示）。老师想增加学生对自己做出答案的不确定性，方法是<strong>最大化</strong>有<strong>连续相同</strong>结果的题数。（也就是连续出现<code>true</code>或者连续出现<code>false</code>）。</p>
-<p>给你一个字符串<code>answerKey</code>，其中<code>answerKey[i]</code>是第<code>i</code>个问题的正确结果。除此以外，还给你一个整数<code>k</code>，表示你能进行以下操作的最多次数：</p>
-<ul>
-<li>每次操作中，将问题的正确答案改为<code>&#39;T&#39;</code>或者<code>&#39;F&#39;</code>（也就是将<code>answerKey[i]</code>改为<code>&#39;T&#39;</code>或者<code>&#39;F&#39;</code>）。</li>
-</ul>
-<p>请你返回在不超过<code>k</code>次操作的情况下，<strong>最大</strong>连续<code>&#39;T&#39;</code>或者<code>&#39;F&#39;</code>的数目。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：answerKey = &quot;TTFF&quot;, k = 2</span><br><span class="line">输出：4</span><br><span class="line">解释：我们可以将两个 &#x27;F&#x27; 都变为 &#x27;T&#x27; ，得到 answerKey = &quot;TTTT&quot; 。</span><br><span class="line">总共有四个连续的 &#x27;T&#x27; 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：answerKey = &quot;TFFT&quot;, k = 1</span><br><span class="line">输出：3</span><br><span class="line">解释：我们可以将最前面的 &#x27;T&#x27; 换成 &#x27;F&#x27; ，得到 answerKey = &quot;FFFT&quot; 。</span><br><span class="line">或者，我们可以将第二个 &#x27;T&#x27; 换成 &#x27;F&#x27; ，得到 answerKey = &quot;TFFF&quot; 。</span><br><span class="line">两种情况下，都有三个连续的 &#x27;F&#x27; 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 3：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：answerKey = &quot;TTFTTFTT&quot;, k = 1</span><br><span class="line">输出：5</span><br><span class="line">解释：我们可以将第一个 &#x27;F&#x27; 换成 &#x27;T&#x27; ，得到 answerKey = &quot;TTTTTFTT&quot; 。</span><br><span class="line">或者我们可以将第二个 &#x27;F&#x27; 换成 &#x27;T&#x27; ，得到 answerKey = &quot;TTFTTTTT&quot; 。</span><br><span class="line">两种情况下，都有五个连续的 &#x27;T&#x27; 。</span><br></pre></td></tr></table></figure>
-
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>其实就是在输入字符串中搜寻一个<strong>最多可包含k个<code>F(T)</code>的<code>T(F)</code>字符串</strong>，返回这个字符串的最大长度。</p>
-<p>应用<strong>滑动窗口</strong>的思想：维护一个窗口，该窗口内最多有k个<code>F</code>，<code>head</code>标记窗口左端，<code>tail</code>标记窗口右端，<code>tol</code>记录当前窗口内的<code>F</code>数量。</p>
-<ul>
-<li>若右端读入一个<code>T</code>：窗口右端扩张。</li>
-<li>若右端读入一个<code>F</code>：<ul>
-<li>若<code>tol &lt; k</code>：窗口右端扩张；<code>tol</code>+1。</li>
-<li>若<code>tol &gt;= k</code>，此时窗口内<code>F</code>数量饱和：窗口左端收缩，直到排出一个<code>F</code>，即：<ul>
-<li>若<code>head = T</code>，左端继续收缩。</li>
-<li>若<code>head = F</code>，左端收缩完成，<code>tol</code>-1。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>一开始想着记录F的位置，着实没有必要，不如从窗口左端一个个滑过去判断&#x3D; &#x3D;</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="实现1"><a href="#实现1" class="headerlink" title="实现1"></a>实现1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxConsecutiveAnswers</span>(<span class="params">self, answerKey: <span class="built_in">str</span>, k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">mysolution</span>(<span class="params">ch: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            ans, head, tail, tol = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> tail &lt; (<span class="built_in">len</span>(answerKey)):</span><br><span class="line">                <span class="keyword">if</span> answerKey[tail] == ch:</span><br><span class="line">                    <span class="keyword">if</span> tol &gt;= k: </span><br><span class="line">                        <span class="keyword">if</span> answerKey[head] == ch:</span><br><span class="line">                            tol -= <span class="number">1</span></span><br><span class="line">                        head += <span class="number">1</span></span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        tol += <span class="number">1</span></span><br><span class="line">                tail += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> tail - head &gt; ans <span class="keyword">and</span> tol &lt;= k:</span><br><span class="line">                    ans = tail - head</span><br><span class="line">            <span class="keyword">return</span> ans</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(mysolution(<span class="string">&#x27;T&#x27;</span>), mysolution(<span class="string">&#x27;F&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="实现2（官方）"><a href="#实现2（官方）" class="headerlink" title="实现2（官方）"></a>实现2（官方）</h3><p>这个简洁程度值得学习一下。。。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxConsecutiveAnswers</span>(<span class="params">self, answerKey: <span class="built_in">str</span>, k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">maxConsecutiveChar</span>(<span class="params">ch: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            ans, left, <span class="built_in">sum</span> = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> right <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(answerKey)):</span><br><span class="line">                <span class="built_in">sum</span> += answerKey[right] != ch</span><br><span class="line">                <span class="keyword">while</span> <span class="built_in">sum</span> &gt; k:</span><br><span class="line">                    <span class="built_in">sum</span> -= answerKey[left] != ch</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                ans = <span class="built_in">max</span>(ans, right - left + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> ans</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(maxConsecutiveChar(<span class="string">&#x27;T&#x27;</span>), maxConsecutiveChar(<span class="string">&#x27;F&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/30/2024.%20%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
