@@ -151,6 +151,127 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-1606. 找到处理最多请求的服务器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/01/1606.%20%E6%89%BE%E5%88%B0%E5%A4%84%E7%90%86%E6%9C%80%E5%A4%9A%E8%AF%B7%E6%B1%82%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/">【H】1606. 找到处理最多请求的服务器</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/01/1606.%20%E6%89%BE%E5%88%B0%E5%A4%84%E7%90%86%E6%9C%80%E5%A4%9A%E8%AF%B7%E6%B1%82%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2022-04-01T10:56:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-servers-that-handled-most-number-of-requests/">1606. 找到处理最多请求的服务器</a></p>
+<p>你有<code>k</code>个服务器，编号为<code>0</code>到<code>k-1</code>，它们可以同时处理多个请求组。每个服务器有无穷的计算能力但是<strong>不能同时处理超过一个请求</strong>。请求分配到服务器的规则如下：</p>
+<ul>
+<li>第<code>i</code>（序号从<code>0</code>开始）个请求到达。</li>
+<li>如果所有服务器都已被占据，那么该请求被舍弃（完全不处理）。</li>
+<li>如果第<code>(i % k)</code>个服务器空闲，那么对应服务器会处理该请求。</li>
+<li>否则，将请求安排给下一个空闲的服务器（服务器构成一个环，必要的话可能从第<code>0</code>个服务器开始继续找下一个空闲的服务器）。比方说，如果第<code>i</code>个服务器在忙，那么会查看第<code>(i+1)</code>个服务器，第<code>(i+2)</code>个服务器等等。</li>
+</ul>
+<p>给你一个<strong>严格递增</strong>的正整数数组<code>arrival</code>，表示第<code>i</code>个任务的到达时间，和另一个数组<code>load</code>，其中<code>load[i]</code>表示第<code>i</code>个请求的工作量（也就是服务器完成它所需要的时间）。你的任务是找到<strong>最繁忙的服务器</strong>。最繁忙定义为一个服务器处理的请求数是所有服务器里最多的。</p>
+<p>请你返回包含所有<strong>最繁忙服务器</strong>序号的列表，你可以以任意顺序返回这个列表。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/03/load-1.png" alt="example1"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：k = 3, arrival = [1,2,3,4,5], load = [5,2,3,3,3] </span><br><span class="line">输出：[1] </span><br><span class="line">解释：</span><br><span class="line">所有服务器一开始都是空闲的。</span><br><span class="line">前 3 个请求分别由前 3 台服务器依次处理。</span><br><span class="line">请求 3 进来的时候，服务器 0 被占据，所以它被安排到下一台空闲的服务器，也就是服务器 1 。</span><br><span class="line">请求 4 进来的时候，由于所有服务器都被占据，该请求被舍弃。</span><br><span class="line">服务器 0 和 2 分别都处理了一个请求，服务器 1 处理了两个请求。所以服务器 1 是最忙的服务器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-暴力解法（超时）"><a href="#1-暴力解法（超时）" class="headerlink" title="1 暴力解法（超时）"></a>1 暴力解法（超时）</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>定义<code>num[] = [0] * k</code>为每个server处理request的数量；</p>
+<p>定义<code>isFree[] = [1] * k</code>为每个server的下次空闲时间；</p>
+<p>第<code>i</code>个request到来，查看第<code>i % k</code>个server是否空闲：</p>
+<ul>
+<li><p>若空闲，更新<code>num[i % k]</code>与<code>isFree[i % k]</code></p>
+</li>
+<li><p>若忙碌，向后查找下一个server：</p>
+<p>检查<code>j = [i % k + 1, k - 1]</code>号server：</p>
+<ul>
+<li><p>若<code>server[j]</code>空闲，更新<code>num[j]</code>与<code>isFree[j]</code></p>
+</li>
+<li><p>若<code>server[j]</code>忙碌，从第一个服务器开始查找：</p>
+<p>检查<code>j = [0, i % k - 1]</code>号server：</p>
+<ul>
+<li>若<code>server[j]</code>空闲，更新<code>num[j]</code>与<code>isFree[j]</code></li>
+<li>若<code>server[j]</code>忙碌，丢弃<code>request[i]</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>最后求<code>i</code>，使得<code>num[i] = max(num)</code>。</p>
+<p>总结：自己想的方法，大部分情况适用，超长用例妥妥超时了……所以需要学习一些方便排序的存储结构进行改进。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">busiestServers</span>(<span class="params">self, k: <span class="built_in">int</span>, arrival: <span class="type">List</span>[<span class="built_in">int</span>], load: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        num = [<span class="number">0</span>] * k</span><br><span class="line">        isFree = [<span class="number">1</span>] * k</span><br><span class="line">        flag = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arrival)):</span><br><span class="line">            server = i % k</span><br><span class="line">            <span class="keyword">if</span> isFree[server] &lt;= arrival[i]:</span><br><span class="line">                num[server] += <span class="number">1</span></span><br><span class="line">                isFree[server] = load[i] + arrival[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                flag = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(server + <span class="number">1</span>, k):</span><br><span class="line">                    <span class="keyword">if</span> isFree[j] &lt;= arrival[i]:</span><br><span class="line">                        flag = <span class="number">1</span></span><br><span class="line">                        num[j] += <span class="number">1</span></span><br><span class="line">                        isFree[j] = load[i] + arrival[i]</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                        </span><br><span class="line">                <span class="keyword">if</span> flag != <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, server):</span><br><span class="line">                        <span class="keyword">if</span> isFree[j] &lt;= arrival[i]:</span><br><span class="line">                            num[j] += <span class="number">1</span></span><br><span class="line">                            isFree[j] = load[i] + arrival[i]</span><br><span class="line">                            <span class="keyword">break</span> </span><br><span class="line">                   </span><br><span class="line">        maxnum = <span class="built_in">max</span>(num)</span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            <span class="keyword">if</span> num[i] == maxnum:</span><br><span class="line">                ans.append(i)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-改进解法"><a href="#2-改进解法" class="headerlink" title="2 改进解法"></a>2 改进解法</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>这种方法使用了一个优先队列（堆）来存储各个服务器的工作情况，即任务结束的时间，根据结束时间从前到后排列；然后使用一个有序列表来存储当前请求到来时，所有空闲的服务器索引，并从小到大排列。这样每次只需要在空闲池中，按照索引的大小查找可用的服务器。且使用了二分查找，降低时间复杂度。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    使用了优先队列&amp;有序列表的解法</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">busiestServers</span>(<span class="params">self, k: <span class="built_in">int</span>, arrival: <span class="type">List</span>[<span class="built_in">int</span>], load: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        num = [<span class="number">0</span>] * k</span><br><span class="line">        maxnum = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 优先队列busy:存储当前忙碌的【服务器索引】及其【任务结束时间】,根据结束时间升序排列</span></span><br><span class="line">        <span class="comment"># busy[_][0]-服务器下次空闲时间</span></span><br><span class="line">        <span class="comment"># busy[_][1]-服务器索引</span></span><br><span class="line">        busy = []</span><br><span class="line">        <span class="comment"># 有序列表free: 存储当前任务开始时刻，所有空闲的【服务器索引】，注意是从小到大的</span></span><br><span class="line">        free = SortedList(<span class="built_in">range</span>(k)) </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arrival)):</span><br><span class="line">            <span class="comment"># 从优先队列中取出所有可使用的server，加入【空闲池】</span></span><br><span class="line">            <span class="keyword">while</span> busy <span class="keyword">and</span> busy[<span class="number">0</span>][<span class="number">0</span>] &lt;= arrival[i]:</span><br><span class="line">                free.add(busy[<span class="number">0</span>][<span class="number">1</span>]) <span class="comment"># 队头符合条件，将其【服务器索引】加入空闲池</span></span><br><span class="line">                heappop(busy)   <span class="comment"># 符合条件的队头弹出忙碌队列</span></span><br><span class="line">                </span><br><span class="line">            <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">            1.首先，判断i % k是否空闲：</span></span><br><span class="line"><span class="string">              idx赋值为服务器i % k在free中的位置</span></span><br><span class="line"><span class="string">              若idx!=len(free)，【跳出if】不进行接下来的比较，idx=free.bisect_left(i % k)，</span></span><br><span class="line"><span class="string">                注意i % k可能空闲，此时idx为i % k；或者i % k忙碌，此时【idx为空闲池中刚好大于i % k的服务器索引】</span></span><br><span class="line"><span class="string">              若idx==len(free)，则意味着服务器i % k索引比当前所有空闲服务器索引都大，且i % k忙碌，继续if中的第二步比较</span></span><br><span class="line"><span class="string">              </span></span><br><span class="line"><span class="string">            2.接下来，idx赋值为服务器0在free中的位置，注意：因为free有序，无论服务器0是否空闲，idx都为0，指向空闲池中索引最小的服务器</span></span><br><span class="line"><span class="string">              若idx!=len(free)，即len(free)!=0，有空闲服务器，【idx为索引最小的空闲服务器】</span></span><br><span class="line"><span class="string">              若idx==len(free)，即len(free)==0，即没有空闲服务器，丢弃请求i，进入下一条请求的循环</span></span><br><span class="line"><span class="string">              </span></span><br><span class="line"><span class="string">            *这种设计省去了对每一个服务器遍历是否空闲的操作，仅需要从空闲池中按要求取出即可</span></span><br><span class="line"><span class="string">            &#x27;&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">if</span> (idx := free.bisect_left(i % k)) == <span class="built_in">len</span>(free) == (idx := free.bisect_left(<span class="number">0</span>)):</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            u = free[idx]</span><br><span class="line">            free.remove(u) <span class="comment">#从空闲池中取出选中的服务器</span></span><br><span class="line">            heappush(busy, (arrival[i] + load[i], u))   <span class="comment">#将选中服务器加入忙碌队列（堆）</span></span><br><span class="line">            num[u] += <span class="number">1</span></span><br><span class="line">            maxnum = <span class="built_in">max</span>(maxnum, num[u])               </span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k) <span class="keyword">if</span> num[i] == maxnum]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="Python-SortedList-有序列表"><a href="#Python-SortedList-有序列表" class="headerlink" title="Python SortedList: 有序列表"></a>Python SortedList: 有序列表</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leigeno/article/details/119971863">python学习笔记之SortedList</a></p>
+<h3 id="Python-海象运算符"><a href="#Python-海象运算符" class="headerlink" title="Python 海象运算符 :="></a>Python 海象运算符 <code>:=</code></h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40244755/article/details/102685199">Python :&#x3D;海象运算符最简单的解释</a></p>
+<h3 id="Python-heap-堆"><a href="#Python-heap-堆" class="headerlink" title="Python heap: 堆"></a>Python heap: 堆</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a529975125/article/details/83315727">【Python】堆（heap）的基本操作</a></p>
+<h3 id="Python-bisect-二分查找模块"><a href="#Python-bisect-二分查找模块" class="headerlink" title="Python bisect: 二分查找模块"></a>Python bisect: 二分查找模块</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ldy-miss/p/12061437.html">Python的bisect模块</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/01/1606.%20%E6%89%BE%E5%88%B0%E5%A4%84%E7%90%86%E6%9C%80%E5%A4%9A%E8%AF%B7%E6%B1%82%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2024. 考试的最大困扰度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -946,87 +1067,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/21/2039.%20%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B2%E7%9A%84%E6%97%B6%E5%88%BB/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-653. 两数之和 IV - 输入 BST" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/21/653.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/">【S】653. 两数之和 IV - 输入 BST</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/21/653.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/" class="archive-article-date">
-  	<time datetime="2022-03-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/">653. 两数之和 IV - 输入 BST</a></p>
-<p>给定一个二叉搜索树 <code>root</code> 和一个目标结果 <code>k</code>，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 <code>true</code>。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>维护一个哈希表<code>self.s</code>，初始时为空。</p>
-<p>从根节点开始向下递归搜索，对于当前节点（值为x)，检查<code>self.s</code>中是否存在<code>k - x</code>，若存在则返回True。</p>
-<p>若不存在，将当前节点值<code>x</code>加入<code>self.s</code>，继续搜索。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.s = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findTarget</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> k - root.val <span class="keyword">in</span> self.s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        self.s.add(root.val)</span><br><span class="line">        <span class="keyword">return</span> self.findTarget(root.left, k) <span class="keyword">or</span> self.findTarget(root.right, k)</span><br></pre></td></tr></table></figure>
-
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="Python-set"><a href="#Python-set" class="headerlink" title="Python: set"></a>Python: set</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cyx-12/p/9234285.html">https://www.cnblogs.com/cyx-12/p/9234285.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/21/653.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/">more >></a>
         </p>
       
 

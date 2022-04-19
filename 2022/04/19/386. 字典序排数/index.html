@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: leetcode | Twice!</title>
+  <title>386. 字典序排数 | Twice!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="with love ...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Twice!">
-<meta property="og:url" content="http://example.com/tags/leetcode/page/2/index.html">
+  <meta name="description" content="386. 字典序排数 给你一个整数 n ，按字典序返回范围 [1, n] 内所有整数。 你必须设计一个时间复杂度为 O(n) 且使用 O(1) 额外空间的算法。 示例 1： 12输入：n &#x3D; 13输出：[1,10,11,12,13,2,3,4,5,6,7,8,9]  示例 2： 12输入：n &#x3D; 2输出：[1,2]  提示：  1 &lt;&#x3D; n &lt;&#x3D; 5 * 104  方法1 自己捣鼓法自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="386. 字典序排数">
+<meta property="og:url" content="http://example.com/2022/04/19/386.%20%E5%AD%97%E5%85%B8%E5%BA%8F%E6%8E%92%E6%95%B0/index.html">
 <meta property="og:site_name" content="Twice!">
-<meta property="og:description" content="with love ...">
+<meta property="og:description" content="386. 字典序排数 给你一个整数 n ，按字典序返回范围 [1, n] 内所有整数。 你必须设计一个时间复杂度为 O(n) 且使用 O(1) 额外空间的算法。 示例 1： 12输入：n &#x3D; 13输出：[1,10,11,12,13,2,3,4,5,6,7,8,9]  示例 2： 12输入：n &#x3D; 2输出：[1,2]  提示：  1 &lt;&#x3D; n &lt;&#x3D; 5 * 104  方法1 自己捣鼓法自">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1650246458-ahFpqe-image.png">
+<meta property="article:published_time" content="2022-04-19T07:08:46.000Z">
+<meta property="article:modified_time" content="2022-04-19T07:26:05.023Z">
 <meta property="article:author" content="Rthete">
-<meta property="article:tag" content="123">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/1650246458-ahFpqe-image.png">
   
     <link rel="alternative" href="/atom.xml" title="Twice!" type="application/atom+xml">
   
@@ -149,36 +153,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-386. 字典序排数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      386. 字典序排数
+    </h1>
+  
+
+        
+        <a href="/2022/04/19/386.%20%E5%AD%97%E5%85%B8%E5%BA%8F%E6%8E%92%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2022-04-19T07:08:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lexicographical-numbers/">386. 字典序排数</a></p>
+<p>给你一个整数 <code>n</code> ，按字典序返回范围 <code>[1, n]</code> 内所有整数。</p>
+<p>你必须设计一个时间复杂度为 <code>O(n)</code> 且使用 <code>O(1)</code> 额外空间的算法。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 13</span><br><span class="line">输出：[1,10,11,12,13,2,3,4,5,6,7,8,9]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 5 * 104</code></li>
+</ul>
+<h2 id="方法1-自己捣鼓法"><a href="#方法1-自己捣鼓法" class="headerlink" title="方法1 自己捣鼓法"></a>方法1 自己捣鼓法</h2><p>自己写的很繁琐的方法，并且不符合空间复杂度$O(1)$&#x3D; &#x3D;</p>
+<p>具体思路：</p>
+<ul>
+<li>定义<code>num = 1</code>，为当前要加入字典序数列<code>ans[]</code>的数字；定义<code>cur[]</code>栈，记录退回的数字。</li>
+<li>题目要求的时间复杂度$O(n)$，写一个while循环，流程为：<ol>
+<li>首先将上一轮处理的<code>num</code>加入<code>ans[]</code>，并判断循环是否结束。</li>
+<li>接着进行<code>num</code>的处理，若<code>num * 10</code>符合要求，<code>num</code>为退回状态，入栈；否则<code>num + 1</code>。</li>
+<li>注意到当<code>num</code>末位为<code>9</code>时（或是<code>num == n</code>时，即到达末尾数字），不能简单的加1，需要进行退回操作：循环逐位判断进位。比如<code>num = 599</code>时，经过<code>599-&gt;59-&gt;5</code>,下一个数为<code>cur.pop() + 1 = 6</code>。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lexicalOrder</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        ans, num, cur = [], <span class="number">1</span>, []</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> num &lt;= n: ans.append(num)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(ans) == n: <span class="keyword">return</span> ans</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> num * <span class="number">10</span> &lt;= n: </span><br><span class="line">                cur.append(num)</span><br><span class="line">                num *= <span class="number">10</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> num % <span class="number">10</span> == <span class="number">9</span> <span class="keyword">and</span> cur <span class="keyword">or</span> num == n: </span><br><span class="line">                <span class="keyword">while</span> cur[-<span class="number">1</span>] % <span class="number">10</span> == <span class="number">9</span>:</span><br><span class="line">                    cur.pop()</span><br><span class="line">                num = cur.pop() + <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> num + <span class="number">1</span> &lt;= n: </span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2-简洁官解"><a href="#方法2-简洁官解" class="headerlink" title="方法2 简洁官解"></a>方法2 简洁官解</h2><p><strong>深度优先搜索</strong></p>
+<p>题目要求设计一个时间复杂度为$O(n)$且使用$O(1)$额外空间的算法，因此我们不能使用直接排序的方法。</p>
+<p>那么对于一个整数$\textit{number}$，它的下一个字典序整数对应下面的规则：</p>
+<ul>
+<li>尝试在$\textit{number}$后面附加一个零，即$\textit{number} \times 10$，如果$\textit{number} \times 10 \le n$，那么说明 $\textit{number} \times 10$是下一个字典序整数；</li>
+<li>如果$\textit{number} \bmod 10 &#x3D; 9$或$\textit{number} + 1 \gt n$，那么说明末尾的数位已经搜索完成，退回上一位，即$\textit{number} &#x3D; \Big \lfloor \dfrac{\textit{number}}{10} \Big \rfloor$。</li>
+</ul>
+<p>字典序最小的整数为$\textit{number} &#x3D; 1$，我们从它开始，然后依次获取下一个字典序整数，加入结果中，结束条件为已经获取到$n$个整数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lexicalOrder</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        ans = [<span class="number">0</span>] * n</span><br><span class="line">        num = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            ans[i] = num</span><br><span class="line">            <span class="keyword">if</span> num * <span class="number">10</span> &lt;= n:</span><br><span class="line">                num *= <span class="number">10</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span> num % <span class="number">10</span> == <span class="number">9</span> <span class="keyword">or</span> num + <span class="number">1</span> &gt; n:</span><br><span class="line">                    num //= <span class="number">10</span></span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法3-有额外空间开销的递归"><a href="#方法3-有额外空间开销的递归" class="headerlink" title="方法3 有额外空间开销的递归"></a>方法3 有额外空间开销的递归</h2><p>来源：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/ac_oier/">宫水三叶</a></p>
+<img src="https://pic.leetcode-cn.com/1650246458-ahFpqe-image.png" style="zoom: 25%;" />
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lexicalOrder</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">cur: <span class="built_in">int</span>, limit: <span class="built_in">int</span></span>):</span><br><span class="line">            <span class="keyword">if</span> cur &gt; limit: <span class="keyword">return</span></span><br><span class="line">            ans.append(cur)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>):</span><br><span class="line">                dfs(cur * <span class="number">10</span> + i, limit)</span><br><span class="line">        </span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">            dfs(i, n)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>字典序排序是一个经典问题，主要用到了深度优先搜索思想。其实不需要用栈存储退回状态，可以直接转换为数学方法获取退回状态。</p>
+<p>之前有一题是字典序第k大，没有好好做【流汗黄豆】</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/27/2028.%20%E6%89%BE%E5%87%BA%E7%BC%BA%E5%A4%B1%E7%9A%84%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE/" class="archive-article-date">
-  	<time datetime="2022-03-27T07:27:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/27/2028.%20%E6%89%BE%E5%87%BA%E7%BC%BA%E5%A4%B1%E7%9A%84%E8%A7%82%E6%B5%8B%E6%95%B0%E6%8D%AE/">【M】2028. 找出缺失的观测数据</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -190,250 +235,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/19/386.%20%E5%AD%97%E5%85%B8%E5%BA%8F%E6%8E%92%E6%95%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2022-03-26T07:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/11/357.%20%E7%BB%9F%E8%AE%A1%E5%90%84%E4%BD%8D%E6%95%B0%E5%AD%97%E9%83%BD%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【M】357. 统计各位数字都不同的数字个数</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/26/682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">【S】682. 棒球比赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951-%E8%87%AA%E5%B7%B1%E6%8D%A3%E9%BC%93%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">方法1 自己捣鼓法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952-%E7%AE%80%E6%B4%81%E5%AE%98%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">方法2 简洁官解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%953-%E6%9C%89%E9%A2%9D%E5%A4%96%E7%A9%BA%E9%97%B4%E5%BC%80%E9%94%80%E7%9A%84%E9%80%92%E5%BD%92"><span class="toc-number">3.</span> <span class="toc-text">方法3 有额外空间开销的递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/" class="archive-article-date">
-  	<time datetime="2022-03-25T14:53:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/25/172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">【M】172. 阶乘后的零</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/24/661-%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2022-03-24T14:49:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/24/661-%E5%9B%BE%E7%89%87%E5%B9%B3%E6%BB%91%E5%99%A8/">【S】661. 图片平滑器</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/22/2038.%20%E5%A6%82%E6%9E%9C%E7%9B%B8%E9%82%BB%E4%B8%A4%E4%B8%AA%E9%A2%9C%E8%89%B2%E5%9D%87%E7%9B%B8%E5%90%8C%E5%88%99%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A2%9C%E8%89%B2/" class="archive-article-date">
-  	<time datetime="2022-03-22T08:41:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/22/2038.%20%E5%A6%82%E6%9E%9C%E7%9B%B8%E9%82%BB%E4%B8%A4%E4%B8%AA%E9%A2%9C%E8%89%B2%E5%9D%87%E7%9B%B8%E5%90%8C%E5%88%99%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A2%9C%E8%89%B2/">【M】2038. 如果相邻两个颜色均相同则删除当前颜色</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/21/2039.%20%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B2%E7%9A%84%E6%97%B6%E5%88%BB/" class="archive-article-date">
-  	<time datetime="2022-03-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/21/2039.%20%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B2%E7%9A%84%E6%97%B6%E5%88%BB/">【M】2039. 网络空闲的时刻</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/21/653.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/" class="archive-article-date">
-  	<time datetime="2022-03-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/21/653.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20IV%20-%20%E8%BE%93%E5%85%A5%20BST/">【S】653. 两数之和 IV - 输入 BST</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/leetcode/">&amp;laquo; Prev</a><a class="page-number" href="/tags/leetcode/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -457,9 +370,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
