@@ -183,7 +183,8 @@
 <h3 id="1-2-安装CUDA"><a href="#1-2-安装CUDA" class="headerlink" title="1.2 安装CUDA"></a>1.2 安装CUDA</h3><ol>
 <li>基于我们主机的CUDA version，从官网下载CUDA Tookit 11.1</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-11.1.1-download-archive![image-20220428222431762](https://raw.githubusercontent.com/Rthete/blog_image/master/6/image-20220428222431762.png)">https://developer.nvidia.com/cuda-11.1.1-download-archive![image-20220428222431762](https://raw.githubusercontent.com/Rthete/blog_image/master/6/image-20220428222431762.png)</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-11.1.1-download-archive">https://developer.nvidia.com/cuda-11.1.1-download-archive</a></p>
+<p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/6/image-20220428222431762.png" alt="image-20220428222431762"></p>
 <ol start="2">
 <li>进行安装，路径默认</li>
 </ol>
@@ -220,12 +221,11 @@
 <blockquote>
 <p><strong>Windows</strong> 用户无法直接创建名为 <code>.condarc</code> 的文件，可先执行 <code>conda config --set show_channel_urls yes</code> 生成该文件之后再修改。</p>
 </blockquote>
-<ol>
-<li><p>生成<code>.condarc</code>文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure></li>
-</ol>
+<p>生成<code>.condarc</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/6/image-20220428193449569.png" alt="image-20220428193449569"></p>
-<p>​    之后可以在<code>C:\Users\xxx</code>中看到<code>.condarc</code>文件，记事本打开 <code>.condarc</code> 文件，重写其中的内容：</p>
+<p>之后可以在<code>C:\Users\xxx</code>中看到<code>.condarc</code>文件，记事本打开 <code>.condarc</code> 文件，重写其中的内容：</p>
 <p><img src="https://raw.githubusercontent.com/Rthete/blog_image/master/6/image-20220428193431317.png" alt="image-20220428193431317"></p>
 <p>运行 <code>conda clean -i</code> 清除索引缓存，保证用的是镜像站提供的索引：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda clean -i</span><br></pre></td></tr></table></figure>
